@@ -1,0 +1,15 @@
+{
+  "name": "atlasdesignsystem",
+  "version": "1.0.0",
+  "description": "A react native design system for the Atlas workout app",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "react",
+    "native"
+  ],
+  "author": "Juan Castillo",
+  "license": "ISC"
+}
