@@ -80,3 +80,5 @@ _coverage/*
  
 # testing
 /coverage
+
+.history
