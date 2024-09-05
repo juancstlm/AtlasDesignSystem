@@ -15,7 +15,7 @@ export type SwitchToggleProps = {
   touchableStyle?: StyleProp<ViewStyle>;
 };
 
-const SwitchToggle = ({ testId, onChange, value, caption, label, touchableStyle }: SwitchToggleProps) => {
+export const SwitchToggle = ({ testId, onChange, value, caption, label, touchableStyle }: SwitchToggleProps) => {
   const styles = useMenuItemStyles().styles;
   return (
     <View style={styles.container}>

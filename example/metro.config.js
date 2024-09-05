@@ -1,37 +1,34 @@
-var path = require('path')
-const { getDefaultConfig } = require('expo/metro-config');
-// Absolute path to your package
-const packagePath = path.resolve(__dirname, '..')
-    
+var path = require("path");
+const { getDefaultConfig } = require("expo/metro-config");
 
-// module.exports = {
-//     resolver: {
-//         nodeModulesPaths: [packagePath],
-//         // rest of metro resolver options...
-//     },
-//     // rest of metro options...
-//     watchFolders: [packagePath]
+// const extraNodeModules = {
+//   "atlas-design-system": path.resolve(__dirname, "../src"),
+//   react: path.resolve(__dirname, "node_modules/react"),
+//   "react-native": path.resolve(__dirname, "node_modules/react-native"),
 // };
 
+const extraNodeModules = new Proxy(
+  {
+    "atlas-design-system": path.resolve(__dirname, "../src"),
+    // Redirect any imports of 'react' or 'react-native' to the example app's node_modules
+    react: path.resolve(__dirname, "node_modules/react"),
+    "react-native": path.resolve(__dirname, "node_modules/react-native"),
+    "moment": path.resolve(__dirname, "node_modules/moment"),
+  },
+  {
+    get: (target, name) =>
+      name in target
+        ? target[name]
+        : path.join(process.cwd(), `node_modules/${name}`),
+  }
+);
+
+const watchFolders = [path.resolve(__dirname, "../src")];
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-// config.resolver.resolveRequest = (context, moduleName, platform) => {
-// //   if (moduleName.startsWith('atlas-design-system')) {
-// //     console.log({packagePath})
-// //     // Logic to resolve the module name to a file path...
-// //     // NOTE: Throw an error if there is no resolution.
-// //     return {
-// //       filePath: packagePath,
-// //       type: 'sourceFile',
-// //     };
-// //   }
-
-//   // Ensure you call the default resolver.
-//   return context.resolveRequest(context, moduleName, platform);
-// };
-
-config.resolver.nodeModulesPaths = [...config.resolver.nodeModulesPaths, packagePath]
+config.resolver.extraNodeModules = extraNodeModules;
+config.watchFolders = watchFolders;
 
 module.exports = config;

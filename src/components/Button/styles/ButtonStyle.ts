@@ -16,6 +16,9 @@ export const useButtonStyles = () =>
             paddingVertical: theme.size.baseSize * 2,
             textAlign: 'center',
           },
+          secondary: {
+            backgroundColor: theme.colors.foregroundLowContrast,
+          },
           destructiveContainer: {
             borderRadius: theme.borderRadius,
             justifyContent: 'center',

@@ -1,6 +1,6 @@
 import { AtlasTheme, FontWeights, Typography } from '../types';
 
-const fontFamily = 'Gilroy-Bold';
+const fontFamily = 'System';
 const fontWeight: FontWeights = '700';
 
 const typography: Typography = {

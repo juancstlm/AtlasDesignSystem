@@ -1,5 +1,19 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 import Animated, {
   Easing,
   SlideInDown,
@@ -8,11 +22,11 @@ import Animated, {
   useSharedValue,
   withTiming,
   runOnJS,
-} from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useThemedStyle } from '../../hooks/useThemedStyle';
-import Text from '../Text';
+import { useThemedStyle } from "../../hooks/useThemedStyle";
+import Text from "../Text";
 
 type Props = {
   open: boolean;
@@ -22,6 +36,7 @@ type Props = {
   defaultMargins?: boolean;
   header?: string;
   transparent?: boolean;
+  disableScroll?: boolean;
 };
 
 const BACKGROUND_OPACITY = 0.6;
@@ -34,6 +49,7 @@ export const Sheet = ({
   defaultMargins = true,
   header,
   transparent = false,
+  disableScroll = false
 }: Props) => {
   const styles = useStyles(defaultMargins).styles;
   const [visible, setVisible] = useState(open);
@@ -82,17 +98,25 @@ export const Sheet = ({
             setVisible(false);
           }}
         >
-          <Animated.View style={[styles.modalBackground, animatedModalBackgroundStyles]} />
+          <Animated.View
+            style={[styles.modalBackground, animatedModalBackgroundStyles]}
+          />
         </Pressable>
       )}
       {visible && (
-        <Animated.View entering={SlideInDown} exiting={SlideOutDown} style={[styles.sheet, containerStyle]}>
+        <Animated.View
+          entering={SlideInDown}
+          exiting={SlideOutDown}
+          style={[styles.sheet, containerStyle]}
+        >
           {!!header && (
             <View style={styles.headerContainer}>
               <Text>{header}</Text>
             </View>
           )}
-          <ScrollView contentContainerStyle={styles.contentContainer}>{children}</ScrollView>
+          <ScrollView scrollEnabled={!disableScroll} contentContainerStyle={styles.contentContainer}>
+            {children}
+          </ScrollView>
         </Animated.View>
       )}
     </>
@@ -116,45 +140,47 @@ const useStyles = (defaultMargins: boolean) => {
   const { bottom: bottomInset } = useSafeAreaInsets();
   return useThemedStyle(
     useCallback(
-      theme =>
+      (theme) =>
         StyleSheet.create({
           wrapper: {
             flex: 1,
-            justifyContent: 'flex-end',
+            justifyContent: "flex-end",
           },
           headerContainer: {
             paddingVertical: theme.size.baseSize * 3,
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: "center",
+            alignItems: "center",
             borderBottomWidth: theme.borderWidth / 2,
             borderColor: theme.colors.border,
           },
           modalPressable: {
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             bottom: 0,
             right: 0,
             left: 0,
           },
           modalBackground: {
-            backgroundColor: '#000000',
-            position: 'absolute',
+            backgroundColor: "#000000",
+            position: "absolute",
             top: 0,
             bottom: 0,
             right: 0,
             left: 0,
           },
           sheet: {
-            alignSelf: 'center',
-            display: 'flex',
-            width: '100%',
+            alignSelf: "center",
+            display: "flex",
+            width: "100%",
             maxWidth: 600,
-            maxHeight: '80%',
+            maxHeight: "80%",
             backgroundColor: theme.colors.backgroundPrimary,
           },
           contentContainer: {
             padding: defaultMargins ? theme.size.baseSize * 4 : 0,
-            paddingBottom: defaultMargins ? theme.size.baseSize * 4 + bottomInset : bottomInset,
+            paddingBottom: defaultMargins
+              ? theme.size.baseSize * 4 + bottomInset
+              : bottomInset,
           },
         }),
       [bottomInset]

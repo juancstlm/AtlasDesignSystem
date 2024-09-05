@@ -38,7 +38,7 @@ export type TextInputProps = {
   containerStyle?: StyleProp<ViewStyle>;
 } & Omit<RNTextInputProps, "onBlur">;
 
-const TextInput = forwardRef(
+export const TextInput = forwardRef(
   (
     {
       caption,

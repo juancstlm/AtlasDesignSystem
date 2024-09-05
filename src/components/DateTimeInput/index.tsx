@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import DateTimePicker, { IOSNativeProps, AndroidNativeProps } from '@react-native-community/datetimepicker';
 import { View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import IonIcons from 'react-native-vector-icons/Ionicons';
+// import IonIcons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 import Sheet from '../Sheet';
@@ -38,7 +38,7 @@ const getFormat = (mode?: DateTimeInputProps['mode']) => {
   }
 };
 
-const DateTimeInput = ({
+export const DateTimeInput = ({
   value,
   onChange,
   testID,
@@ -96,17 +96,17 @@ const DateTimeInput = ({
                 {moment(value).format(getFormat(mode)).toString()}
               </Text>
             </Animated.View>
-            <IonIcons
+            {/*<IonIcons
               style={styles.iconRight}
               color={!disabled ? theme.colors.foreground : theme.colors.foregroundLowContrast}
               name={mode === 'time' ? 'time-outline' : 'calendar-outline'}
               size={20}
-            />
+            />*/}
           </Animated.View>
         </TouchableOpacity>
         {!!caption && <MenuItemDescription description={caption} />}
       </View>
-      <Sheet header={label} open={dateSheetOpen} setOpen={setDateSheetOpen}>
+      <Sheet disableScroll header={label} open={dateSheetOpen} setOpen={setDateSheetOpen}>
         <DateTimePicker
           value={date}
           mode={mode}

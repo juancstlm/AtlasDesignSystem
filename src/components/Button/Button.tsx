@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   ActivityIndicator,
   StyleProp,
@@ -16,33 +16,79 @@ export enum ButtonType {
 
 export interface ButtonProps {
   disabled?: boolean;
+  // Deprecated use appearance
   type?: ButtonType;
   onPress?: () => void;
   text: string;
   loading?: boolean;
   testID?: string;
   containerStyle?: StyleProp<ViewStyle>;
+  appearance?: "primary" | "secondary" | "destructive";
 }
 
-const Button = ({
+const getButtonStyle = (
+  styles: {
+    disabled: StyleProp<ViewStyle>;
+    primary: StyleProp<ViewStyle>;
+    secondary: StyleProp<ViewStyle>;
+    destructive: StyleProp<ViewStyle>;
+  },
+  appearance: ButtonProps["appearance"],
+  disabled: boolean
+) => {
+  let style = [styles.primary];
+
+  if (appearance === "secondary") {
+    style.push(styles.secondary);
+  }
+
+  if (appearance === "destructive") {
+    style.push(styles.destructive);
+  }
+
+  if (disabled) {
+    style.push(styles.disabled);
+  }
+
+  return style;
+};
+
+export const Button = ({
   testID,
   disabled = false,
   onPress,
   text,
   loading,
-  type = ButtonType.Primary,
   containerStyle = {},
+  appearance = "primary",
+  type,
 }: ButtonProps) => {
   const { styles, theme } = useButtonStyles();
-  const buttonStyle =
-    type === ButtonType.Primary ? styles.default : styles.destructiveContainer;
+  const buttonStyle = useMemo(() => {
+    let _apperance = appearance;
+
+    if (type) {
+      _apperance = type === ButtonType.Destructive ? "destructive" : "primary";
+    }
+
+    return getButtonStyle(
+      {
+        disabled: styles.disabled,
+        primary: styles.default,
+        destructive: styles.destructiveContainer,
+        secondary: styles.secondary,
+      },
+      _apperance,
+      disabled
+    );
+  }, [styles, appearance, disabled, type]);
 
   return (
     <TouchableOpacity
       testID={testID}
       style={[buttonStyle, disabled && styles.disabled, containerStyle]}
       onPress={onPress}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
       {loading ? (
         <ActivityIndicator
