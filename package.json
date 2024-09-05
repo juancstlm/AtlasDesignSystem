@@ -1,15 +1,38 @@
 {
-  "name": "atlasdesignsystem",
-  "version": "1.0.0",
+  "name": "atlas-design-system",
+  "version": "1.1.0",
   "description": "A react native design system for the Atlas workout app",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "example": "yarn --cwd example",
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
   "keywords": [
-    "react",
+    "react-native",
     "native"
   ],
+  "dependencies": {
+    "@react-native-community/datetimepicker": "~8.0.1",
+    "expo-symbols": "^0.1.4",
+    "moment": "^2.29.0",
+    "react": "~18.2.0",
+    "react-native": "0.74.3",
+    "react-native-reanimated": "~3.10.1",
+    "@expo/vector-icons": "^14.0.2"
+  },
+  "peerDependencies": {
+    "@react-native-community/datetimepicker": ">=3.5.2",
+    "react": ">=17.0.1",
+    "react-native": ">=0.64.1",
+    "react-native-reanimated": ">=3.0.0",
+    "expo-symbols": ">=0.1.4",
+    "@expo/vector-icons": ">=14.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0"
+  },
   "author": "Juan Castillo",
   "license": "ISC"
 }
