@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { View, StyleSheet, ViewStyle, SafeAreaView, Pressable } from "react-native";
-import { SymbolView } from "expo-symbols";
+import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import { useThemedStyle } from "../../hooks";
 import Text from "../Text";
@@ -51,10 +51,10 @@ export const TitleBar = ({
     }
     return (
       <Pressable style={styles.backButtonContainer} onPress={handleOnBackPress}>
-        <SymbolView
-          resizeMode="top"
+        <IonIcons
           style={styles.backButton}
-          name="chevron.left"
+          name="chevron-back-outline"
+          size={20}
           tintColor={styles.chevronBack.color}
         />
       </Pressable>

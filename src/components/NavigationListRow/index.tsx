@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { SymbolView } from "expo-symbols";
+import IonIcons from "react-native-vector-icons/Ionicons";
 
 import Text from "../Text";
 import { useThemedStyle } from "../../hooks/useThemedStyle";
@@ -21,17 +21,21 @@ export const NavigationListRow = ({
   const styles = useStyles().styles;
 
   return (
-    <TouchableOpacity disabled={disabled} style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      disabled={disabled}
+      style={styles.container}
+      onPress={onPress}
+    >
       <View style={styles.content}>
         <Text category="h3">{label}</Text>
         {caption && <Text contrast="low">{caption}</Text>}
       </View>
-        <SymbolView
-          style={styles.chevronRight}
-          tintColor={styles.chevronRightTint.color}
-          resizeMode="center"
-          name="chevron.right"
-        />
+      <IonIcons
+        style={styles.chevronRight}
+        size={18}
+        tintColor={styles.chevronRightTint.color}
+        name="chevron-forward-outline"
+      />
     </TouchableOpacity>
   );
 };
@@ -53,12 +57,12 @@ const useStyles = () =>
             paddingHorizontal: t.size.baseSize * 4,
           },
           chevronRight: {
-            height: '100%',
+            height: "100%",
             flexGrow: 0,
           },
           chevronRightTint: {
-            color: t.colors.foregroundLowContrast
-          }
+            color: t.colors.foregroundLowContrast,
+          },
         }),
       []
     )

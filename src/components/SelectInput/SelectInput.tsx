@@ -8,7 +8,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { Ionicons } from '@expo/vector-icons';
+import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import Text from '../Text';
 import Sheet from '../Sheet';
@@ -93,7 +93,7 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
             )}
           </Animated.View>
           <Animated.View style={animatedChevronStyle}>
-            <Ionicons style={styles.chevron} name="chevron-down-outline" size={20} />
+            <IonIcons style={styles.chevron} name="chevron-down-outline" size={20} />
           </Animated.View>
         </Animated.View>
       </TouchableOpacity>
