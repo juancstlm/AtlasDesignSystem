@@ -24,7 +24,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import Text from "../Text";
-import MenuItemDescription from "../MenuItemDescription";
+import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 
 export type TextInputProps = {
@@ -186,6 +186,8 @@ export const TextInput = forwardRef(
 );
 
 export default TextInput;
+
+TextInput.displayName = 'TextInput'
 
 const useStyles = (disabled: boolean) =>
   useThemedStyle(

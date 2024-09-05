@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -7,14 +7,14 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
-import IonIcons from 'react-native-vector-icons/Ionicons'
+} from "react-native-reanimated";
+import IonIcons from "react-native-vector-icons/Ionicons";
 
-import Text from '../Text';
-import Sheet from '../Sheet';
-import MenuItemDescription from '../MenuItemDescription';
-import { useThemedStyle } from '../../hooks';
-import { Option } from './types'
+import Text from "../Text";
+import Sheet from "../Sheet";
+import { MenuItemDescription } from "../MenuItemDescription";
+import { useThemedStyle } from "../../hooks";
+import { Option } from "./types";
 
 type Props<T> = {
   caption?: string;
@@ -23,12 +23,17 @@ type Props<T> = {
   onChange: (newValue: Option<T>) => void;
 };
 
-export const SelectInput = <T extends any>({ caption, label, options = [], onChange }: Props<T>) => {
+export function SelectInput<T>({
+  caption,
+  label,
+  options = [],
+  onChange,
+}: Props<T>) {
   // Rest of the component stays the same.
   const { styles, theme } = useStyles();
 
   const values = useMemo(() => {
-    return options.filter(v => v.selected);
+    return options.filter((v) => v.selected);
   }, options);
 
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -44,19 +49,25 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
   }, [sheetOpen]);
 
   useEffect(() => {
-    animatedValue.value = values.length ? 1 : 0
-  }, [values.length])
+    animatedValue.value = values.length ? 1 : 0;
+  }, [values.length]);
 
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ translateY: interpolate(animatedValue.value, [0, 1], [1, -8]) }],
+      transform: [
+        { translateY: interpolate(animatedValue.value, [0, 1], [1, -8]) },
+      ],
       fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
     };
   }, []);
 
   const animatedContainerStyles = useAnimatedStyle(() => {
     return {
-      borderColor: interpolateColor(animatedValue.value, [0, 1], ['#ffffff00', theme.colors.border]),
+      borderColor: interpolateColor(
+        animatedValue.value,
+        [0, 1],
+        ["#ffffff00", theme.colors.border]
+      ),
     };
   }, [animatedValue]);
 
@@ -65,11 +76,13 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
       flex: 1,
       transform: [{ translateY: animatedValue.value * 6 }],
     };
-  },  [animatedValue]);
+  }, [animatedValue]);
 
   const animatedChevronStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ rotateX: `${interpolate(rotation.value, [0, 1], [0, 180])}deg` }],
+      transform: [
+        { rotateX: `${interpolate(rotation.value, [0, 1], [0, 180])}deg` },
+      ],
     };
   }, [rotation]);
 
@@ -83,7 +96,9 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
       <TouchableOpacity onPress={() => setSheetOpen(true)}>
         <Animated.View style={[styles.itemContainer, animatedContainerStyles]}>
           <View pointerEvents="none" style={styles.labelContainer}>
-            <Animated.Text style={[styles.label, animatedLabelStyles]}>{label}</Animated.Text>
+            <Animated.Text style={[styles.label, animatedLabelStyles]}>
+              {label}
+            </Animated.Text>
           </View>
           <Animated.View style={animatedValueStyle}>
             {!!values.length && (
@@ -93,7 +108,11 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
             )}
           </Animated.View>
           <Animated.View style={animatedChevronStyle}>
-            <IonIcons style={styles.chevron} name="chevron-down-outline" size={20} />
+            <IonIcons
+              style={styles.chevron}
+              name="chevron-down-outline"
+              size={20}
+            />
           </Animated.View>
         </Animated.View>
       </TouchableOpacity>
@@ -101,22 +120,27 @@ export const SelectInput = <T extends any>({ caption, label, options = [], onCha
       <Sheet open={sheetOpen} setOpen={setSheetOpen} header={label}>
         {options.map((option, i) => (
           <TouchableOpacity
-            style={[styles.selectionItem, option.selected && styles.selectedSelectionItem]}
+            style={[
+              styles.selectionItem,
+              option.selected && styles.selectedSelectionItem,
+            ]}
             key={i}
             onPress={() => handleOptionPress(option)}
           >
-            <Text contrast={option.selected ? 'high' : 'low'}>{option.label}</Text>
+            <Text contrast={option.selected ? "high" : "low"}>
+              {option.label}
+            </Text>
           </TouchableOpacity>
         ))}
       </Sheet>
     </>
   );
-};
+}
 
 const useStyles = () =>
   useThemedStyle(
     useCallback(
-      theme =>
+      (theme) =>
         StyleSheet.create({
           chevron: {
             paddingRight: theme.size.baseSize * 2,
@@ -126,7 +150,7 @@ const useStyles = () =>
             borderColor: theme.colors.primary,
           },
           selectionItem: {
-            alignItems: 'center',
+            alignItems: "center",
             borderWidth: theme.borderWidth,
             borderColor: theme.colors.border,
             marginBottom: theme.size.baseSize * 2,
@@ -140,13 +164,13 @@ const useStyles = () =>
             marginBottom: theme.size.baseSize * 2,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           },
           labelContainer: {
             left: theme.size.baseSize * 2,
-            position: 'absolute',
+            position: "absolute",
           },
           label: {
             color: theme.text,

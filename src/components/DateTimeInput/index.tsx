@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import Sheet from '../Sheet';
 import Text from '../Text';
-import MenuItemDescription from '../MenuItemDescription';
+import { MenuItemDescription } from '../MenuItemDescription';
 import { useThemedStyle } from '../../hooks';
 import Button from '../Button';
 

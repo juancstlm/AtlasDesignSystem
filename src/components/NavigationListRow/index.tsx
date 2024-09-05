@@ -33,7 +33,6 @@ export const NavigationListRow = ({
       <IonIcons
         style={styles.chevronRight}
         size={18}
-        tintColor={styles.chevronRightTint.color}
         name="chevron-forward-outline"
       />
     </TouchableOpacity>
