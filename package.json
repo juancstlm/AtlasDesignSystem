@@ -3,7 +3,10 @@
   "version": "1.2.0",
   "description": "A react native design system for the Atlas workout app",
   "main": "src/index.ts",
-  "repository": "https://github.com/juancstlm/AtlasDesignSystem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juancstlm/AtlasDesignSystem.git"
+  },
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}' && tsc --noEmit",
     "test": "test",
