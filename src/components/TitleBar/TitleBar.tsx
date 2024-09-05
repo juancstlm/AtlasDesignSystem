@@ -55,7 +55,6 @@ export const TitleBar = ({
           style={styles.backButton}
           name="chevron-back-outline"
           size={20}
-          tintColor={styles.chevronBack.color}
         />
       </Pressable>
     );

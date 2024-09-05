@@ -36,7 +36,7 @@ const getButtonStyle = (
   appearance: ButtonProps["appearance"],
   disabled: boolean
 ) => {
-  let style = [styles.primary];
+  const style = [styles.primary];
 
   if (appearance === "secondary") {
     style.push(styles.secondary);

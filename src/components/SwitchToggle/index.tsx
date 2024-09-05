@@ -3,7 +3,7 @@ import { StyleProp, Switch, TouchableOpacity, View, ViewStyle } from 'react-nati
 
 
 import Text from '../Text';
-import MenuItemDescription from '../MenuItemDescription';
+import { MenuItemDescription } from '../MenuItemDescription';
 import { useMenuItemStyles } from '../../shared/styles/index';
 
 export type SwitchToggleProps = {
