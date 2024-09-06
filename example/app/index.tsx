@@ -52,7 +52,13 @@ export default function Index() {
           router.navigate("/sheetGallery");
         }}
         label="Sheet"
-      ></NavigationListRow>
+      />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/navigationListRowGallery");
+        }}
+        label="Navigation List Row"
+      />
     </ScrollView>
   );
 }
