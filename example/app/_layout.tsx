@@ -26,6 +26,7 @@ export default function RootLayout() {
         <Stack.Screen name="buttonGallery" options={{ title: "Button" }} />
         <Stack.Screen name="sheetGallery" options={{ title: "Sheet" }} />
         <Stack.Screen name="selectInputGallery" options={{ title: "Select Input" }} />
+        <Stack.Screen name="navigationListRowGallery" options={{ title: "Navigation Row" }} />
       </Stack>
     </ThemeContext.Provider>
   );
