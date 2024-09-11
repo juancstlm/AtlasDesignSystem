@@ -113,8 +113,7 @@ export const TextInput = forwardRef(
       });
     };
 
-    const handleOnBlur: RNTextInputProps["onBlur"] = ({ nativeEvent }) => {
-      onBlur?.(nativeEvent.text);
+    const startBlurAnimation = () => {
       focusedValue.value = withTiming(0, {
         duration: 200,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
@@ -125,6 +124,11 @@ export const TextInput = forwardRef(
           easing: Easing.bezier(0.25, 0.1, 0.25, 1),
         });
       }
+    };
+
+    const handleOnBlur: RNTextInputProps["onBlur"] = ({ nativeEvent }) => {
+      onBlur?.(nativeEvent.text);
+      startBlurAnimation();
     };
 
     const onFocus = () => {
@@ -187,7 +191,7 @@ export const TextInput = forwardRef(
 
 export default TextInput;
 
-TextInput.displayName = 'TextInput'
+TextInput.displayName = "TextInput";
 
 const useStyles = (disabled: boolean) =>
   useThemedStyle(

@@ -27,6 +27,9 @@ export default function RootLayout() {
         <Stack.Screen name="sheetGallery" options={{ title: "Sheet" }} />
         <Stack.Screen name="selectInputGallery" options={{ title: "Select Input" }} />
         <Stack.Screen name="navigationListRowGallery" options={{ title: "Navigation Row" }} />
+        <Stack.Screen name="formTextInputGallery" options={{ title: "Form Text Input" }} />
+        <Stack.Screen name="formSwitchToggleGallery" options={{ title: "Form Switch Toggle" }} />
+        <Stack.Screen name="formDateTimeInputGallery" options={{ title: "Form Date Time Input" }} />
       </Stack>
     </ThemeContext.Provider>
   );

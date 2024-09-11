@@ -1,2 +1,2 @@
-export * from './useTheme'
-export * from './useThemedStyle'
+export * from "./useTheme";
+export * from "./useThemedStyle";
