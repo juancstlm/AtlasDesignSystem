@@ -1,12 +1,20 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 
 import { useThemedStyle, SelectInput, Option } from "atlas-design-system";
 
-export default function selectInputGallery() {
+export default function SelectInputGallery() {
   const styles = useStyles().styles;
 
-  const [selectedOption, setSelectedOption] = useState<Option>();
+  const [selectedOption, setSelectedOption] = useState<Option<string>>();
+  const [selectedOption2, setSelectedOption2] = useState<Option<string>>();
+
+  const error = useMemo(() => {
+    if(!selectedOption2) {
+      return "Must Select A Value"
+    }
+    return;
+  }, [selectedOption2])
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -24,6 +32,23 @@ export default function selectInputGallery() {
           },
         ]}
         onChange={setSelectedOption}
+        label="Select One"
+      />
+      <SelectInput
+        error={error}
+        options={[
+          {
+            value: "almond",
+            label: "Almond",
+            selected: selectedOption2?.value === "almond",
+          },
+          {
+            value: "honey",
+            label: "Honey",
+            selected: selectedOption2?.value === "honey",
+          },
+        ]}
+        onChange={setSelectedOption2}
         label="Select One"
       />
     </ScrollView>

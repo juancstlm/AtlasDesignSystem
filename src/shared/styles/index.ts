@@ -16,6 +16,8 @@ export const useMenuItemStyles = () =>
               marginBottom: theme.size.baseSize * 3,
             },
             itemContainer: {
+              borderWidth: theme.borderWidth,
+              borderColor: theme.colors.backgroundPrimary,
               backgroundColor: theme.menuItemContainerBackground,
               borderRadius: theme.borderRadius,
               paddingHorizontal: theme.size.baseSize * 2,

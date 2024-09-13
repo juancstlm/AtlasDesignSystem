@@ -8,10 +8,7 @@ export default function Index() {
   const styles = useStyles().styles;
   return (
     <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        alignItems: "center",
-      }}
+      contentContainerStyle={styles.container}
     >
       <NavigationListRow
         onPress={() => {
@@ -82,6 +79,12 @@ export default function Index() {
         }}
         label="Form Date Time Input"
       />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/formSelectInputGallery");
+        }}
+        label="Form Select Input"
+      />
     </ScrollView>
   );
 }
@@ -91,6 +94,10 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
+          container: {
+            flex: 1,
+            alignItems: "center",
+          },
           sectionHeader: {
             paddingTop: t.size.baseSize * 4,
             paddingHorizontal: t.size.baseSize * 4,

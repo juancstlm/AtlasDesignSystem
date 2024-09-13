@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import DateTimePicker, { IOSNativeProps, AndroidNativeProps } from '@react-native-community/datetimepicker';
 import { View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
@@ -10,6 +10,8 @@ import Text from '../Text';
 import { MenuItemDescription } from '../MenuItemDescription';
 import { useThemedStyle } from '../../hooks';
 import Button from '../Button';
+import { useInputFieldAnimatedBorder } from '../../hooks/useInputFieldAnimatedBorder';
+import { FieldError } from '../FieldError/FieldError';
 
 export type DateTimeInputProps = {
   label: string;
@@ -21,6 +23,7 @@ export type DateTimeInputProps = {
   testID?: string;
   containerStyle?: StyleProp<ViewStyle>;
   mode?: IOSNativeProps['mode'] | AndroidNativeProps['mode'];
+  error?: string;
 };
 
 const getFormat = (mode?: DateTimeInputProps['mode']) => {
@@ -46,6 +49,7 @@ export const DateTimeInput = ({
   label,
   caption,
   mode = 'date',
+  error,
   disabled = false,
   onSave,
 }: DateTimeInputProps) => {
@@ -62,6 +66,15 @@ export const DateTimeInput = ({
   }, [dateSheetOpen, value]);
 
   const animatedValue = useSharedValue(value ? 1 : 0);
+  const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(styles.itemContainer.borderColor)
+
+  useEffect(() => {
+    if (error) {
+      setBorderColor(styles.itemContainerError.borderColor)
+      return;
+    } 
+    setBorderColor(dateSheetOpen ? styles.itemContainerFocused.borderColor : styles.itemContainer.borderColor)
+  }, [error, dateSheetOpen])
 
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
@@ -69,12 +82,6 @@ export const DateTimeInput = ({
       fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
     };
   }, []);
-
-  const animatedContainerStyles = useAnimatedStyle(() => {
-    return {
-      borderColor: interpolateColor(animatedValue.value, [0, 1], ['#ffffff00', theme.colors.border]),
-    };
-  });
 
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
@@ -87,7 +94,7 @@ export const DateTimeInput = ({
     <>
       <View testID={testID} style={[styles.container, containerStyle]}>
         <TouchableOpacity onPress={() => setDateSheetOpen(true)} disabled={disabled}>
-          <Animated.View style={[styles.itemContainer, animatedContainerStyles]}>
+          <Animated.View style={[styles.itemContainer, animatedBorderStyle]}>
             <View pointerEvents="none" style={styles.labelContainer}>
               <Animated.Text style={[styles.label, animatedLabelStyles]}>{label}</Animated.Text>
             </View>
@@ -104,6 +111,7 @@ export const DateTimeInput = ({
             />
           </Animated.View>
         </TouchableOpacity>
+        {!!error && <FieldError error={error}/>}
         {!!caption && <MenuItemDescription description={caption} />}
       </View>
       <Sheet disableScroll header={label} open={dateSheetOpen} setOpen={setDateSheetOpen}>
@@ -113,6 +121,7 @@ export const DateTimeInput = ({
           themeVariant={theme.isDarkTheme ? 'dark' : 'light'}
           display="spinner"
           onChange={(_, newDate) => {
+            console.log({newDate})
             if (!newDate) {
               return;
             }
@@ -121,10 +130,10 @@ export const DateTimeInput = ({
           }}
         />
         <Button
-          disabled={value.getTime() === date.getTime()}
           text="Save"
           onPress={() => {
             onSave?.(date);
+            setDateSheetOpen(false);
           }}
         />
       </Sheet>
@@ -150,6 +159,14 @@ const useStyles = (disabled: boolean) =>
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            borderColor: t.colors.backgroundPrimary,
+            borderWidth: t.borderWidth,
+          },
+          itemContainerError: {
+            borderColor: t.colors.foregroundNegative
+          },
+          itemContainerFocused: {
+            borderColor: t.colors.border,
           },
           itemLabel: {
             color: t.textPrimary,
