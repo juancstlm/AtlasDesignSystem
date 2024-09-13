@@ -1,9 +1,11 @@
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
-import { NavigationListRow } from "atlas-design-system";
+import { NavigationListRow, Text, useThemedStyle } from "atlas-design-system";
+import { useCallback } from "react";
 
 export default function Index() {
+  const styles = useStyles().styles;
   return (
     <ScrollView
       contentContainerStyle={{
@@ -59,6 +61,43 @@ export default function Index() {
         }}
         label="Navigation List Row"
       />
+      <Text style={styles.sectionHeader} category="h2">
+        Form Components
+      </Text>
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/formTextInputGallery");
+        }}
+        label="Form Text Input"
+      />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/formSwitchToggleGallery");
+        }}
+        label="Form Switch Toggle"
+      />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/formDateTimeInputGallery");
+        }}
+        label="Form Date Time Input"
+      />
     </ScrollView>
   );
 }
+
+const useStyles = () =>
+  useThemedStyle(
+    useCallback(
+      (t) =>
+        StyleSheet.create({
+          sectionHeader: {
+            paddingTop: t.size.baseSize * 4,
+            paddingHorizontal: t.size.baseSize * 4,
+            alignSelf: "flex-start",
+            paddingBottom: t.size.baseSize * 2,
+          },
+        }),
+      []
+    )
+  );

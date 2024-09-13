@@ -3,12 +3,12 @@ import { ScrollView, StyleSheet } from "react-native";
 
 import { TextInput, useThemedStyle } from "atlas-design-system";
 
-export default function DateTimeInputGallery() {
+export default function TextInputGallery() {
   const styles = useStyles().styles;
-  const [text, setText] = useState();
+  const [text, setText] = useState('');
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <TextInput value={text} onChange={setText} label="Text Input"/>
+      <TextInput value={text} onChangeText={setText} label="Text Input"/>
     </ScrollView>
   );
 }

@@ -1,9 +1,9 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { Alert, ScrollView, StyleSheet } from "react-native";
 
 import { NavigationListRow, useThemedStyle } from "atlas-design-system";
 
-export default function DateTimeInputGallery() {
+export default function NavigationListRowGallery() {
   const styles = useStyles().styles;
 
   return (
@@ -25,7 +25,6 @@ const useStyles = () =>
         StyleSheet.create({
           container: {
             paddingTop: t.size.baseSize *4,
-            paddingHorizontal: t.size.baseSize * 4,
           },
         }),
       []
