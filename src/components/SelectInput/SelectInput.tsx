@@ -154,7 +154,6 @@ const useStyles = () =>
             borderWidth: theme.borderWidth,
             borderColor: theme.colors.backgroundPrimary,
             backgroundColor: theme.colors.backgroundOnPrimary,
-            marginBottom: theme.size.baseSize * 2,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
             flexDirection: "row",
