@@ -1,23 +1,22 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import { Alert, ScrollView, StyleSheet } from "react-native";
 
 import { FormApi } from "informed";
 
 import {
   useThemedStyle,
-  FormTextInput,
+  FormSelectInput,
   Form,
   Button,
 } from "atlas-design-system";
 
 type FormType = {
-  favorite_food?: string
+  favorite_driver?: string
 }
 
-export default function FormTextInputGallery() {
+export default function FormSelectInputGallery() {
   const styles = useStyles().styles;
   const formRef = useRef<FormApi>();
-  const [enabled, setEnabled] = useState(false);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -26,30 +25,33 @@ export default function FormTextInputGallery() {
         allowEmptyStrings={false}
         onSubmit={(formState) => {
           const { values } = formState;
-          const typedValue: FormType = values;
-          Alert.alert("Your Favorite Food", typedValue.favorite_food);
-        }}
-        onValid={() => {
-          setEnabled(true);
-        }}
-        onInvalid={() => {
-          setEnabled(false);
+          const typedValues: FormType = values;
+
+          if (typedValues.favorite_driver === 'max_verstappen') {
+            Alert.alert("Max Max Max", 'Super Super Max');
+          } else {
+            Alert.alert("Get In There Lewis", "It's Hammer Time");
+          }
         }}
         formApiRef={formRef}
       >
-        <FormTextInput
+        <FormSelectInput
           required
-          name="name"
-          label="Enter your name"
-        />
-        <FormTextInput
-          required
-          name="favorite_food"
-          label="Enter your favorite food"
+          name="favorite_driver"
+          label="Who is your favorite driver"
+          options={[
+            {
+              value: 'max_verstappen',
+              label: 'Max Verstappen'
+            },
+            {
+              value: 'lewis_hamilton',
+              label: 'Lewis Hamilton'
+            }
+          ]}
         />
       </Form>
       <Button
-        disabled={!enabled}
         text="Submit"
         onPress={() => {
           formRef.current?.submitForm();

@@ -1,6 +1,7 @@
 import React, {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -13,11 +14,10 @@ import {
   Pressable,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from "react-native";
 import Animated, {
-  Easing,
   interpolate,
-  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -26,6 +26,38 @@ import Animated, {
 import Text from "../Text";
 import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
+import { FieldError } from "../FieldError/FieldError";
+import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
+import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
+
+const getLabelStyle = (
+  disabled: boolean,
+  error: boolean,
+  style: { default: TextStyle; error: TextStyle; disabled: TextStyle }
+) => {
+  if (disabled) {
+    return style.disabled;
+  } else if (error) {
+    return style.error;
+  }
+
+  return style.default;
+};
+
+const getTextInputStyle = (
+  disabled: boolean,
+  error: boolean,
+  style: { default: TextStyle; error: TextStyle; disabled: TextStyle }
+) => {
+  if (disabled) {
+    return style.disabled;
+  } else if (error) {
+    return style.error;
+  }
+
+  return style.default;
+};
+
 
 export type TextInputProps = {
   disabled?: boolean;
@@ -36,6 +68,7 @@ export type TextInputProps = {
   value: string;
   label: string;
   containerStyle?: StyleProp<ViewStyle>;
+  error?: string;
 } & Omit<RNTextInputProps, "onBlur">;
 
 export const TextInput = forwardRef(
@@ -50,11 +83,12 @@ export const TextInput = forwardRef(
       onBlur,
       containerStyle,
       disabled = false,
+      error,
       ...rest
     }: TextInputProps,
     ref
   ) => {
-    const { styles, theme } = useStyles(disabled);
+    const { styles, theme } = useStyles(disabled, !!error);
 
     const inputRef = useRef<RNTextInput>(null);
 
@@ -68,7 +102,14 @@ export const TextInput = forwardRef(
     }));
 
     const animatedValue = useSharedValue(value ? 1 : 0);
-    const focusedValue = useSharedValue(0);
+    const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(styles.itemContainer.borderColor)
+
+    useEffect(() => {
+      if (inputRef.current?.isFocused()) {
+        return;
+      }
+      animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
+    }, [value])
 
     const animatedLabelStyles = useAnimatedStyle(() => {
       return {
@@ -86,43 +127,29 @@ export const TextInput = forwardRef(
       };
     });
 
-    const animatedContainerStyles = useAnimatedStyle(() => {
-      return {
-        borderColor: interpolateColor(
-          focusedValue.value,
-          [0, 1],
-          ["#ffffff00", theme.colors.border]
-        ),
-      };
-    });
+    useEffect(() => {
+      if (inputRef.current?.isFocused()) {
+        setBorderColor(error ? styles.itemContainerError.borderColor : styles.itemContainerFocused.borderColor)
+      } else {
+        startBlurAnimation();
+      }
+    }, [error])
 
     const handleOnChangeText = (text: string) => {
       if (text.length === 0) {
-        animatedValue.value = withTiming(0, {
-          duration: 200,
-          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-        });
+        animatedValue.value = withTiming(0, DEFAULT_TIMING_CONFIG);
       }
       onChangeText?.(text);
       if (value || animatedValue.value === 1) {
         return;
       }
-      animatedValue.value = withTiming(1, {
-        duration: 200,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      });
+      animatedValue.value = withTiming(1, DEFAULT_TIMING_CONFIG);
     };
 
     const startBlurAnimation = () => {
-      focusedValue.value = withTiming(0, {
-        duration: 200,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      });
+      setBorderColor(error ? `${styles.itemContainerError.borderColor}40` : styles.itemContainer.borderColor)
       if (!value) {
-        animatedValue.value = withTiming(0, {
-          duration: 200,
-          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-        });
+        animatedValue.value = withTiming(0, DEFAULT_TIMING_CONFIG);
       }
     };
 
@@ -132,10 +159,7 @@ export const TextInput = forwardRef(
     };
 
     const onFocus = () => {
-      focusedValue.value = withTiming(1, {
-        duration: 200,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      });
+      setBorderColor(error ? styles.itemContainerError.borderColor : styles.itemContainerFocused.borderColor)
     };
 
     return (
@@ -150,7 +174,7 @@ export const TextInput = forwardRef(
           <Animated.View
             style={[
               styles.itemContainer,
-              animatedContainerStyles,
+              animatedBorderStyle,
               containerStyle,
             ]}
           >
@@ -170,7 +194,6 @@ export const TextInput = forwardRef(
                   style={styles.textInput}
                   numberOfLines={1}
                   keyboardType={keyboardType}
-                  placeholderTextColor={theme.placeholderTextColor}
                   onChangeText={handleOnChangeText}
                   maxLength={40}
                   returnKeyType="done"
@@ -183,6 +206,7 @@ export const TextInput = forwardRef(
             </Animated.View>
           </Animated.View>
         </Pressable>
+        {!!error && (<FieldError error={error} />)}
         {!!caption && <MenuItemDescription description={caption} />}
       </View>
     );
@@ -193,7 +217,7 @@ export default TextInput;
 
 TextInput.displayName = "TextInput";
 
-const useStyles = (disabled: boolean) =>
+const useStyles = (disabled: boolean, error: boolean) =>
   useThemedStyle(
     useCallback(
       (theme) =>
@@ -209,37 +233,72 @@ const useStyles = (disabled: boolean) =>
           textInput: {
             paddingHorizontal: theme.size.baseSize * 2,
             ...theme.typography.p1,
-            color: theme.colors.foregroundLowContrast,
+            ...getTextInputStyle(disabled, error, {
+              disabled: {
+                color: theme.colors.foregroundLowContrast,
+              },
+              error: {
+                color: theme.colors.foregroundNegative,
+              },
+              default: {
+                color: theme.colors.foregroundLowContrast,
+              },
+            }),
           },
           text: {
             marginTop: theme.size.baseSize,
             paddingHorizontal: theme.size.baseSize * 2,
             color: theme.colors.foregroundLowContrast,
+            ...getTextInputStyle(disabled, error, {
+              disabled: {
+                color: theme.colors.foregroundLowContrast,
+              },
+              error: {
+                color: theme.colors.foregroundNegative,
+              },
+              default: {
+                color: theme.colors.foregroundLowContrast,
+              },
+            }),
           },
           itemContainer: {
             borderWidth: theme.borderWidth,
-            borderColor: theme.colors.borderSecondary,
             backgroundColor: theme.colors.backgroundOnPrimary,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
             flexDirection: "row",
             alignItems: "center",
+            borderColor: `${theme.colors.border}00`,
+          },
+          itemContainerFocused: {
+            borderColor: theme.colors.border,
+          },
+          itemContainerError: {
+            borderColor: theme.colors.foregroundNegative,
           },
           labelContainer: {
             left: theme.size.baseSize * 2,
             position: "absolute",
           },
-          label: {
-            color: !disabled
-              ? theme.colors.foreground
-              : theme.colors.foregroundLowContrast,
-            ...theme.typography.p1,
-          },
+          label: getLabelStyle(disabled, error, {
+            default: {
+              color: theme.colors.foreground,
+              ...theme.typography.p1,
+            },
+            disabled: {
+              color: theme.colors.foregroundLowContrast,
+              ...theme.typography.p1,
+            },
+            error: {
+              color: theme.colors.foregroundNegative,
+              ...theme.typography.p1,
+            },
+          }),
           descriptionContainer: {
             marginHorizontal: theme.size.baseSize * 4,
             marginBottom: theme.size.baseSize * 2,
           },
         }),
-      [disabled]
+      [disabled, error]
     )
   );

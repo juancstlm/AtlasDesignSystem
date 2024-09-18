@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Animated, {
-  Easing,
   interpolate,
-  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -15,12 +13,15 @@ import Sheet from "../Sheet";
 import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 import { Option } from "./types";
+import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
+import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
 
-type Props<T> = {
+export type SelectInputProps<T> = {
   caption?: string;
   label: string;
   options: Option<T>[];
   onChange: (newValue: Option<T>) => void;
+  error?: string;
 };
 
 export function SelectInput<T>({
@@ -28,9 +29,9 @@ export function SelectInput<T>({
   label,
   options = [],
   onChange,
-}: Props<T>) {
-  // Rest of the component stays the same.
-  const { styles, theme } = useStyles();
+  error,
+}: SelectInputProps<T>) {
+  const { styles } = useStyles();
 
   const values = useMemo(() => {
     return options.filter((v) => v.selected);
@@ -40,12 +41,18 @@ export function SelectInput<T>({
 
   const animatedValue = useSharedValue(values.length ? 1 : 0);
   const rotation = useSharedValue(sheetOpen ? 1 : 0);
+  const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(styles.itemContainer.borderColor)
 
   useEffect(() => {
-    rotation.value = withTiming(sheetOpen ? 1 : 0, {
-      duration: 200,
-      easing: Easing.bezier(0.5, 0, 0, 0.75),
-    });
+    if (error) {
+      setBorderColor(styles.itemContainerError.borderColor)
+      return;
+    } 
+    setBorderColor(sheetOpen ? styles.itemContainerFocused.borderColor : styles.itemContainer.borderColor)
+  }, [error, sheetOpen])
+
+  useEffect(() => {
+    rotation.value = withTiming(sheetOpen ? 1 : 0, DEFAULT_TIMING_CONFIG);
   }, [sheetOpen]);
 
   useEffect(() => {
@@ -60,16 +67,6 @@ export function SelectInput<T>({
       fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
     };
   }, []);
-
-  const animatedContainerStyles = useAnimatedStyle(() => {
-    return {
-      borderColor: interpolateColor(
-        animatedValue.value,
-        [0, 1],
-        ["#ffffff00", theme.colors.border]
-      ),
-    };
-  }, [animatedValue]);
 
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
@@ -94,7 +91,7 @@ export function SelectInput<T>({
   return (
     <>
       <TouchableOpacity onPress={() => setSheetOpen(true)}>
-        <Animated.View style={[styles.itemContainer, animatedContainerStyles]}>
+        <Animated.View style={[styles.itemContainer, animatedBorderStyle]}>
           <View pointerEvents="none" style={styles.labelContainer}>
             <Animated.Text style={[styles.label, animatedLabelStyles]}>
               {label}
@@ -159,7 +156,7 @@ const useStyles = () =>
           },
           itemContainer: {
             borderWidth: theme.borderWidth,
-            borderColor: theme.colors.borderSecondary,
+            borderColor: theme.colors.backgroundPrimary,
             backgroundColor: theme.colors.backgroundOnPrimary,
             marginBottom: theme.size.baseSize * 2,
             borderRadius: theme.borderRadius,
@@ -167,6 +164,12 @@ const useStyles = () =>
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
+          },
+          itemContainerFocused: {
+            borderColor: theme.colors.border,
+          },
+          itemContainerError: {
+            borderColor: theme.colors.foregroundNegative,
           },
           labelContainer: {
             left: theme.size.baseSize * 2,
