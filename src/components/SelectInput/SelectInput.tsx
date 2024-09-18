@@ -36,13 +36,13 @@ export function SelectInput<T>({
 }: SelectInputProps<T>) {
   const styles = useStyles().styles;
 
-  const values = useMemo(() => {
-    return options.filter((v) => v.selected);
-  }, options);
+  const value = useMemo(() => {
+    return options.find((v) => v.selected);
+  }, [options]);
 
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const animatedValue = useSharedValue(values.length ? 1 : 0);
+  const animatedValue = useSharedValue(value ? 1 : 0);
   const rotation = useSharedValue(sheetOpen ? 1 : 0);
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
     styles.itemContainer.borderColor
@@ -65,8 +65,8 @@ export function SelectInput<T>({
   }, [sheetOpen]);
 
   useEffect(() => {
-    animatedValue.value = values.length ? 1 : 0;
-  }, [values.length]);
+    animatedValue.value = value ? 1 : 0;
+  }, [value]);
 
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
@@ -107,9 +107,9 @@ export function SelectInput<T>({
             </Animated.Text>
           </View>
           <Animated.View style={animatedValueStyle}>
-            {!!values.length && (
+            {!!value && (
               <Text contrast="low" style={styles.value}>
-                {values[0].label}
+                {value.label}
               </Text>
             )}
           </Animated.View>
