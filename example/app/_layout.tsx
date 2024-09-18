@@ -19,6 +19,7 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: "Components" }} />
+        <Stack.Screen name="searchGallery" options={{ title: "Search" }} />
         <Stack.Screen name="dateTimeInputGallery" options={{ title: "Date Time Input" }} />
         <Stack.Screen name="textInputGallery" options={{ title: "Text Input" }} />
         <Stack.Screen name="switchToggleInputGallery" options={{ title: "Switch Toggle" }} />

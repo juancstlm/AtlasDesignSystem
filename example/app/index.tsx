@@ -12,10 +12,16 @@ export default function Index() {
     >
       <NavigationListRow
         onPress={() => {
+          router.navigate("/searchGallery");
+        }}
+        label="Search"
+      />
+      <NavigationListRow
+        onPress={() => {
           router.navigate("/dateTimeInputGallery");
         }}
         label="Date Time Input"
-      ></NavigationListRow>
+      />
       <NavigationListRow
         onPress={() => {
           router.navigate("/textInputGallery");

@@ -15,6 +15,7 @@ import { useThemedStyle } from "../../hooks";
 import { Option } from "./types";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
+import SelectionItem from "./components/SelectionItem";
 
 export type SelectInputProps<T> = {
   caption?: string;
@@ -22,6 +23,7 @@ export type SelectInputProps<T> = {
   options: Option<T>[];
   onChange: (newValue: Option<T>) => void;
   error?: string;
+  renderOption?: (option: Option<T>) => React.ReactNode;
 };
 
 export function SelectInput<T>({
@@ -30,8 +32,9 @@ export function SelectInput<T>({
   options = [],
   onChange,
   error,
+  renderOption,
 }: SelectInputProps<T>) {
-  const { styles } = useStyles();
+  const styles = useStyles().styles;
 
   const values = useMemo(() => {
     return options.filter((v) => v.selected);
@@ -41,15 +44,21 @@ export function SelectInput<T>({
 
   const animatedValue = useSharedValue(values.length ? 1 : 0);
   const rotation = useSharedValue(sheetOpen ? 1 : 0);
-  const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(styles.itemContainer.borderColor)
+  const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
+    styles.itemContainer.borderColor
+  );
 
   useEffect(() => {
     if (error) {
-      setBorderColor(styles.itemContainerError.borderColor)
+      setBorderColor(styles.itemContainerError.borderColor);
       return;
-    } 
-    setBorderColor(sheetOpen ? styles.itemContainerFocused.borderColor : styles.itemContainer.borderColor)
-  }, [error, sheetOpen])
+    }
+    setBorderColor(
+      sheetOpen
+        ? styles.itemContainerFocused.borderColor
+        : styles.itemContainer.borderColor
+    );
+  }, [error, sheetOpen]);
 
   useEffect(() => {
     rotation.value = withTiming(sheetOpen ? 1 : 0, DEFAULT_TIMING_CONFIG);
@@ -117,16 +126,14 @@ export function SelectInput<T>({
       <Sheet open={sheetOpen} setOpen={setSheetOpen} header={label}>
         {options.map((option, i) => (
           <TouchableOpacity
-            style={[
-              styles.selectionItem,
-              option.selected && styles.selectedSelectionItem,
-            ]}
-            key={i}
             onPress={() => handleOptionPress(option)}
+            key={i + option.label}
           >
-            <Text contrast={option.selected ? "high" : "low"}>
-              {option.label}
-            </Text>
+            {renderOption ? (
+              renderOption(option)
+            ) : (
+              <SelectionItem option={option} />
+            )}
           </TouchableOpacity>
         ))}
       </Sheet>
@@ -142,17 +149,6 @@ const useStyles = () =>
           chevron: {
             paddingRight: theme.size.baseSize * 2,
             color: theme.colors.foreground,
-          },
-          selectedSelectionItem: {
-            borderColor: theme.colors.primary,
-          },
-          selectionItem: {
-            alignItems: "center",
-            borderWidth: theme.borderWidth,
-            borderColor: theme.colors.border,
-            marginBottom: theme.size.baseSize * 2,
-            padding: theme.size.baseSize * 2,
-            borderRadius: theme.borderRadius,
           },
           itemContainer: {
             borderWidth: theme.borderWidth,

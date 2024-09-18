@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import { useThemedStyle, SelectInput, Option } from "atlas-design-system";
+import { useThemedStyle, SelectInput, Option, Text } from "atlas-design-system";
 
 export default function SelectInputGallery() {
   const styles = useStyles().styles;
@@ -10,11 +10,11 @@ export default function SelectInputGallery() {
   const [selectedOption2, setSelectedOption2] = useState<Option<string>>();
 
   const error = useMemo(() => {
-    if(!selectedOption2) {
-      return "Must Select A Value"
+    if (!selectedOption2) {
+      return "Must Select A Value";
     }
     return;
-  }, [selectedOption2])
+  }, [selectedOption2]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -51,6 +51,36 @@ export default function SelectInputGallery() {
         onChange={setSelectedOption2}
         label="Select One"
       />
+
+      <Text>Custom Option Render</Text>
+      <SelectInput
+        options={[
+          {
+            value: "almond",
+            label: "🐶",
+            selected: selectedOption?.value === "almond",
+          },
+          {
+            value: "honey",
+            label: "🍯",
+            selected: selectedOption?.value === "honey",
+          },
+        ]}
+        renderOption={(option) => {
+          return (
+            <View
+              style={[
+                styles.customOption,
+                option.selected && styles.customOptionSelected,
+              ]}
+            >
+              <Text>{option.label}</Text>
+            </View>
+          );
+        }}
+        onChange={setSelectedOption}
+        label="Select One"
+      />
     </ScrollView>
   );
 }
@@ -63,6 +93,15 @@ const useStyles = () =>
           container: {
             paddingTop: t.size.baseSize * 4,
             paddingHorizontal: t.size.baseSize * 4,
+          },
+          customOption: {
+            alignItems: "center",
+            backgroundColor: "#ffa1aa23",
+            paddingVertical: t.size.baseSize * 2,
+            marginVertical: t.size.baseSize * 3,
+          },
+          customOptionSelected: {
+            backgroundColor: "purple",
           },
         }),
       []

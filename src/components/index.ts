@@ -9,6 +9,7 @@ export * from "./NavigationListRow";
 export * from "./DragHandle";
 export * from "./TitleBar";
 export * from "./SelectInput";
+export * from "./Search";
 
 // Forms
 export * from "./Forms";

@@ -30,14 +30,6 @@ export const TitleBar = ({
   const isModal = type === "modal";
   const styles = useStyles(canGoBack, isModal).styles;
 
-  // const edges: [] = useMemo(() => {
-  //   let _edges: [] = ['right', 'left'];
-  //   if (!isModal) {
-  //     _edges = [..._edges, 'top'];
-  //   }
-  //   return _edges;
-  // }, [isModal]);
-
   const handleOnBackPress = useCallback(() => {
     if (!onBackPressed) {
       return;
