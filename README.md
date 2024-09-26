@@ -2,9 +2,9 @@
 A themable design system library with core components used in a React Native App.
 Designed for Atlas Workout app and EzBudget budget app.
 
+<img width=300 alt="screenshot" src="https://github.com/juancstlm/AtlasDesignSystem/blob/master/example/assets/images/iPhone-example.png?raw=true"></img>
 
-## Features
-
+## Usage
 
 Ensure your app has the `peerDependencies` installed
 
