@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -24,6 +24,7 @@ export type SelectInputProps<T> = {
   onChange: (newValue: Option<T>) => void;
   error?: string;
   renderOption?: (option: Option<T>) => React.ReactNode;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export function SelectInput<T>({
@@ -33,6 +34,7 @@ export function SelectInput<T>({
   onChange,
   error,
   renderOption,
+  containerStyle,
 }: SelectInputProps<T>) {
   const styles = useStyles().styles;
 
@@ -98,7 +100,7 @@ export function SelectInput<T>({
   };
 
   return (
-    <>
+    <View style={containerStyle}>
       <TouchableOpacity onPress={() => setSheetOpen(true)}>
         <Animated.View style={[styles.itemContainer, animatedBorderStyle]}>
           <View pointerEvents="none" style={styles.labelContainer}>
@@ -137,7 +139,7 @@ export function SelectInput<T>({
           </TouchableOpacity>
         ))}
       </Sheet>
-    </>
+    </View>
   );
 }
 
@@ -159,6 +161,7 @@ const useStyles = () =>
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
+            height: theme.size.baseSize * 9,
           },
           itemContainerFocused: {
             borderColor: theme.colors.border,

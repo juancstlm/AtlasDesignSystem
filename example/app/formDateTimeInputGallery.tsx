@@ -10,6 +10,7 @@ import {
   Button,
 } from "atlas-design-system";
 import moment from "moment";
+import { getGalleryStyles } from "@/common";
 
 type FormType = {
   favorite_day?: Date;
@@ -31,7 +32,10 @@ export default function FormDateTimeInputGallery() {
         onSubmit={(formState) => {
           const { values } = formState;
           const typedValue: FormType = values;
-          Alert.alert("Your Favorite Time Is", moment(typedValue.favorite_day).format('lll'));
+          Alert.alert(
+            "Your Favorite Time Is",
+            moment(typedValue.favorite_day).format("lll")
+          );
         }}
         onValid={() => {
           setEnabled(true);
@@ -40,6 +44,7 @@ export default function FormDateTimeInputGallery() {
           setEnabled(false);
         }}
         formApiRef={formRef}
+        style={styles.formContainer}
       >
         <FormDateTimeInput
           required
@@ -49,7 +54,7 @@ export default function FormDateTimeInputGallery() {
         <FormDateTimeInput
           required
           name="favorite_day"
-          mode='time'
+          mode="time"
           label="Enter your favorite time"
         />
       </Form>
@@ -69,11 +74,7 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          container: {
-            rowGap: t.size.baseSize * 2,
-            paddingTop: t.size.baseSize * 4,
-            paddingHorizontal: t.size.baseSize * 4,
-          },
+          ...getGalleryStyles(t),
         }),
       []
     )

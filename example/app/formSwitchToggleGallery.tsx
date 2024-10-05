@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState } from "react";
-import { Alert, ScrollView, StyleSheet } from "react-native";
+import { useCallback, useRef } from "react";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 
 import { FormApi } from "informed";
 
@@ -9,10 +9,12 @@ import {
   Form,
   Button,
 } from "atlas-design-system";
+import { getGalleryStyles } from "@/common";
 
 type FormType = {
-  likes_f1?: string 
-}
+  likes_f1?: boolean;
+  likes_nascar?: boolean;
+};
 
 export default function FormSwitchToggleInputGallery() {
   const styles = useStyles().styles;
@@ -28,18 +30,21 @@ export default function FormSwitchToggleInputGallery() {
           const typedValue: FormType = values;
 
           if (typedValue.likes_f1) {
-            Alert.alert("Checkerd Flagg", 'You won the race!');
+            Alert.alert("Checkerd Flagg", "You won the race!");
           } else {
             Alert.alert("Black Flagg", "You were given a black flag");
           }
         }}
         formApiRef={formRef}
       >
-        <FormSwitchToggle
-          required
-          name="likes_f1"
-          label="Do you like Formula 1"
-        />
+        <View style={styles.formContainer}>
+          <FormSwitchToggle
+            required
+            name="likes_f1"
+            label="Do you like Formula 1"
+          />
+          <FormSwitchToggle name="likes_nascar" label="Do you like Nascar" />
+        </View>
       </Form>
       <Button
         text="Submit"
@@ -56,11 +61,7 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          container: {
-            rowGap: t.size.baseSize * 2,
-            paddingTop: t.size.baseSize * 4,
-            paddingHorizontal: t.size.baseSize * 4,
-          },
+          ...getGalleryStyles(t),
         }),
       []
     )

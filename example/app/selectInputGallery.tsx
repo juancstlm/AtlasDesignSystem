@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { useThemedStyle, SelectInput, Option, Text } from "atlas-design-system";
+import { getGalleryStyles } from "@/common";
 
 export default function SelectInputGallery() {
   const styles = useStyles().styles;
@@ -33,6 +34,7 @@ export default function SelectInputGallery() {
         ]}
         onChange={setSelectedOption}
         label="Select One"
+        caption="With a caption"
       />
       <SelectInput
         error={error}
@@ -90,10 +92,7 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          container: {
-            paddingTop: t.size.baseSize * 4,
-            paddingHorizontal: t.size.baseSize * 4,
-          },
+          ...getGalleryStyles(t),
           customOption: {
             alignItems: "center",
             backgroundColor: "#ffa1aa23",

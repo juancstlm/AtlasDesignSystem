@@ -58,7 +58,6 @@ const getTextInputStyle = (
   return style.default;
 };
 
-
 export type TextInputProps = {
   disabled?: boolean;
   testId?: string;
@@ -102,14 +101,16 @@ export const TextInput = forwardRef(
     }));
 
     const animatedValue = useSharedValue(value ? 1 : 0);
-    const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(styles.itemContainer.borderColor)
+    const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
+      styles.itemContainer.borderColor
+    );
 
     useEffect(() => {
       if (inputRef.current?.isFocused()) {
         return;
       }
       animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
-    }, [value])
+    }, [value]);
 
     const animatedLabelStyles = useAnimatedStyle(() => {
       return {
@@ -129,11 +130,15 @@ export const TextInput = forwardRef(
 
     useEffect(() => {
       if (inputRef.current?.isFocused()) {
-        setBorderColor(error ? styles.itemContainerError.borderColor : styles.itemContainerFocused.borderColor)
+        setBorderColor(
+          error
+            ? styles.itemContainerError.borderColor
+            : styles.itemContainerFocused.borderColor
+        );
       } else {
         startBlurAnimation();
       }
-    }, [error])
+    }, [error]);
 
     const handleOnChangeText = (text: string) => {
       if (text.length === 0) {
@@ -147,7 +152,11 @@ export const TextInput = forwardRef(
     };
 
     const startBlurAnimation = () => {
-      setBorderColor(error ? `${styles.itemContainerError.borderColor}40` : styles.itemContainer.borderColor)
+      setBorderColor(
+        error
+          ? `${styles.itemContainerError.borderColor}40`
+          : styles.itemContainer.borderColor
+      );
       if (!value) {
         animatedValue.value = withTiming(0, DEFAULT_TIMING_CONFIG);
       }
@@ -159,7 +168,11 @@ export const TextInput = forwardRef(
     };
 
     const onFocus = () => {
-      setBorderColor(error ? styles.itemContainerError.borderColor : styles.itemContainerFocused.borderColor)
+      setBorderColor(
+        error
+          ? styles.itemContainerError.borderColor
+          : styles.itemContainerFocused.borderColor
+      );
     };
 
     return (
@@ -172,11 +185,7 @@ export const TextInput = forwardRef(
           disabled={disabled}
         >
           <Animated.View
-            style={[
-              styles.itemContainer,
-              animatedBorderStyle,
-              containerStyle,
-            ]}
+            style={[styles.itemContainer, animatedBorderStyle, containerStyle]}
           >
             <View pointerEvents="none" style={styles.labelContainer}>
               <Animated.Text style={[styles.label, animatedLabelStyles]}>
@@ -206,7 +215,7 @@ export const TextInput = forwardRef(
             </Animated.View>
           </Animated.View>
         </Pressable>
-        {!!error && (<FieldError error={error} />)}
+        {!!error && <FieldError error={error} />}
         {!!caption && <MenuItemDescription description={caption} />}
       </View>
     );
@@ -246,6 +255,8 @@ const useStyles = (disabled: boolean, error: boolean) =>
             }),
           },
           text: {
+            ...theme.typography.p1,
+            paddingVertical: theme.size.baseSize * 1,
             marginTop: theme.size.baseSize,
             paddingHorizontal: theme.size.baseSize * 2,
             color: theme.colors.foregroundLowContrast,
@@ -264,6 +275,7 @@ const useStyles = (disabled: boolean, error: boolean) =>
           itemContainer: {
             borderWidth: theme.borderWidth,
             backgroundColor: theme.colors.backgroundOnPrimary,
+            height: theme.size.baseSize * 9,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
             flexDirection: "row",

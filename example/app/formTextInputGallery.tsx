@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { Alert, ScrollView, StyleSheet } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 
 import { FormApi } from "informed";
 
@@ -9,10 +9,11 @@ import {
   Form,
   Button,
 } from "atlas-design-system";
+import { getGalleryStyles } from "@/common";
 
 type FormType = {
-  favorite_food?: string
-}
+  favorite_food?: string;
+};
 
 export default function FormTextInputGallery() {
   const styles = useStyles().styles;
@@ -37,16 +38,14 @@ export default function FormTextInputGallery() {
         }}
         formApiRef={formRef}
       >
-        <FormTextInput
-          required
-          name="name"
-          label="Enter your name"
-        />
-        <FormTextInput
-          required
-          name="favorite_food"
-          label="Enter your favorite food"
-        />
+        <View style={styles.formContainer}>
+          <FormTextInput required name="name" label="Enter your name" />
+          <FormTextInput
+            required
+            name="favorite_food"
+            label="Enter your favorite food"
+          />
+        </View>
       </Form>
       <Button
         disabled={!enabled}
@@ -64,11 +63,7 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          container: {
-            rowGap: t.size.baseSize * 2,
-            paddingTop: t.size.baseSize * 4,
-            paddingHorizontal: t.size.baseSize * 4,
-          },
+          ...getGalleryStyles(t),
         }),
       []
     )

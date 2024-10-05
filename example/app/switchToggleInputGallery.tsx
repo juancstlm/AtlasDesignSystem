@@ -9,15 +9,21 @@ export default function DateTimeInputGallery() {
 
   const error = useMemo(() => {
     if (value == undefined) {
-      return "Must toggle this field"
+      return "Must toggle this field";
     }
-    return
-  }, [value])
+    return;
+  }, [value]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <SwitchToggle value={value} onChange={setValue} label="Switch Toggle" />
-      <SwitchToggle error={error} value={value} onChange={setValue} label="Switch Toggle" />
+      <SwitchToggle value={value} onChange={setValue} label="Switch Toggle" caption="With Caption" />
+      <SwitchToggle
+        error={error}
+        value={value}
+        onChange={setValue}
+        label="Switch Toggle"
+      />
     </ScrollView>
   );
 }

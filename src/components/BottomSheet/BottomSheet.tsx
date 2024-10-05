@@ -78,7 +78,6 @@ export const BottomSheet = ({ open, children, height, setOpen }: Props) => {
       <Pressable
         onPress={() => {
           setOpen(false);
-          console.log("tests");
         }}
         style={styles.wrapper}
       ></Pressable>
