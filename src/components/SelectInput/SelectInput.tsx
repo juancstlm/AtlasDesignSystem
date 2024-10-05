@@ -154,7 +154,7 @@ const useStyles = () =>
           },
           itemContainer: {
             borderWidth: theme.borderWidth,
-            borderColor: theme.colors.backgroundPrimary,
+            borderColor: theme.colors.backgroundOnPrimary,
             backgroundColor: theme.colors.backgroundOnPrimary,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
