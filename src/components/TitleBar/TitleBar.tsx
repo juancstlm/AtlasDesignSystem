@@ -65,7 +65,6 @@ export const TitleBar = ({
             <Text
               category="h1"
               style={styles.headerTitle}
-              adjustsFontSizeToFit
               numberOfLines={1}
             >
               {title ?? ""}
