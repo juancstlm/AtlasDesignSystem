@@ -1,22 +1,28 @@
 import { FieldProps, useField } from "informed";
-import SelectInput, { SelectInputProps } from "../../SelectInput";
+import SegmentedControl, {
+  SegmentedControlProps,
+} from "../../SegmentedControl";
 import { useMemo } from "react";
 import { Option } from "../../SelectInput/types";
 
-type FormSelectInputProps<T> = Omit<SelectInputProps<T>, "options"> & {
+type FormSegmentedControlProps<T> = Omit<
+  SegmentedControlProps<T>,
+  "options"
+> & {
   options: Omit<Option<T>, "selected">[];
 };
-type Props<T> = FieldProps<FormSelectInputProps<T>>;
-export function FormSelectInput<T>(props: Props<T>) {
+
+export function FormSegmentedControl<T>(
+  props: FieldProps<FormSegmentedControlProps<T>>
+) {
   const { render, userProps, fieldApi, informed, fieldState } = useField<
-    FormSelectInputProps<T>,
+    FormSegmentedControlProps<T>,
     T
   >({
     ...props,
   });
 
   const { value } = informed;
-  const { error } = fieldState;
 
   const options = useMemo(() => {
     return userProps.options.map((v) => {
@@ -28,12 +34,12 @@ export function FormSelectInput<T>(props: Props<T>) {
   }, [userProps.options, value]);
 
   return render(
-    <SelectInput
+    <SegmentedControl
       onChange={(v) => {
         fieldApi.setValue(v.value);
       }}
       //@ts-expect-error no types yet :(
-      error={error}
+      error={fieldState.error}
       {...userProps}
       options={options}
     />

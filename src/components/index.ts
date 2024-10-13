@@ -10,6 +10,7 @@ export * from "./DragHandle";
 export * from "./TitleBar";
 export * from "./SelectInput";
 export * from "./Search";
+export * from "./SegmentedControl";
 
 // Forms
 export * from "./Forms";

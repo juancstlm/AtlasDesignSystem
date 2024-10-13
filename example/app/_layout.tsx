@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ title: "Components" }} />
         <Stack.Screen name="searchGallery" options={{ title: "Search" }} />
         <Stack.Screen name="dateTimeInputGallery" options={{ title: "Date Time Input" }} />
+        <Stack.Screen name="segmentedControlGallery" options={{ title: "Segmented Control" }} />
         <Stack.Screen name="textInputGallery" options={{ title: "Text Input" }} />
         <Stack.Screen name="switchToggleInputGallery" options={{ title: "Switch Toggle" }} />
         <Stack.Screen name="textGallery" options={{ title: "Text" }} />
@@ -32,6 +33,7 @@ export default function RootLayout() {
         <Stack.Screen name="formSwitchToggleGallery" options={{ title: "Form Switch Toggle" }} />
         <Stack.Screen name="formDateTimeInputGallery" options={{ title: "Form Date Time Input" }} />
         <Stack.Screen name="formSelectInputGallery" options={{ title: "Form Select Input" }} />
+        <Stack.Screen name="formSegmentedControlGallery" options={{ title: "Form Segmented Control" }} />
       </Stack>
     </ThemeContext.Provider>
   );

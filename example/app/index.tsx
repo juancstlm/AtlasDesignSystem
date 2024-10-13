@@ -7,14 +7,18 @@ import { useCallback } from "react";
 export default function Index() {
   const styles = useStyles().styles;
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-    >
+    <ScrollView contentContainerStyle={styles.container}>
       <NavigationListRow
         onPress={() => {
           router.navigate("/searchGallery");
         }}
         label="Search"
+      />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/segmentedControlGallery");
+        }}
+        label="Segmented Control"
       />
       <NavigationListRow
         onPress={() => {
@@ -90,6 +94,12 @@ export default function Index() {
           router.navigate("/formSelectInputGallery");
         }}
         label="Form Select Input"
+      />
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/formSegmentedControlGallery");
+        }}
+        label="Form Segmented Control"
       />
     </ScrollView>
   );
