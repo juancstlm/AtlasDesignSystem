@@ -1,5 +1,11 @@
 import React, { useCallback } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import IonIcons from "react-native-vector-icons/Ionicons";
 
 import Text from "../Text";
@@ -10,6 +16,8 @@ export type NavigationListRowProps = {
   caption?: string;
   onPress?: () => void;
   disabled?: boolean;
+  defaultPadding?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export const NavigationListRow = ({
@@ -17,13 +25,15 @@ export const NavigationListRow = ({
   caption,
   onPress,
   disabled,
+  defaultPadding = true,
+  containerStyle = {},
 }: NavigationListRowProps) => {
-  const styles = useStyles().styles;
+  const styles = useStyles(defaultPadding).styles;
 
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={styles.container}
+      style={[styles.container, containerStyle]}
       onPress={onPress}
     >
       <View style={styles.content}>
@@ -41,7 +51,7 @@ export const NavigationListRow = ({
 
 export default NavigationListRow;
 
-const useStyles = () =>
+const useStyles = (defaultPadding: boolean) =>
   useThemedStyle(
     useCallback(
       (t) =>
@@ -53,7 +63,7 @@ const useStyles = () =>
             width: "100%",
             flexDirection: "row",
             paddingVertical: t.size.baseSize * 2,
-            paddingHorizontal: t.size.baseSize * 4,
+            paddingHorizontal: defaultPadding ? t.size.baseSize * 4 : 0,
           },
           chevronRight: {
             height: "100%",
@@ -63,6 +73,6 @@ const useStyles = () =>
             color: t.colors.foregroundLowContrast,
           },
         }),
-      []
+      [defaultPadding]
     )
   );
