@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -23,7 +29,10 @@ export type SelectInputProps<T> = {
   options: Option<T>[];
   onChange: (newValue: Option<T>) => void;
   error?: string;
-  renderOption?: (option: Option<T>) => React.ReactNode;
+  renderOption?: (
+    option: Option<T>,
+    onPress: (option: Option<T>) => void
+  ) => React.ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
 };
 
@@ -94,10 +103,10 @@ export function SelectInput<T>({
     };
   }, [rotation]);
 
-  const handleOptionPress = (option: Option<T>) => {
+  const handleOptionPress = useCallback((option: Option<T>) => {
     onChange(option);
     setSheetOpen(false);
-  };
+  }, []);
 
   return (
     <View style={containerStyle}>
@@ -126,18 +135,18 @@ export function SelectInput<T>({
       </TouchableOpacity>
       {!!caption && <MenuItemDescription description={caption} />}
       <Sheet open={sheetOpen} setOpen={setSheetOpen} header={label}>
-        {options.map((option, i) => (
-          <TouchableOpacity
-            onPress={() => handleOptionPress(option)}
-            key={i + option.label}
-          >
-            {renderOption ? (
-              renderOption(option)
-            ) : (
+        {options.map((option, i) =>
+          renderOption ? (
+            renderOption(option, handleOptionPress)
+          ) : (
+            <TouchableOpacity
+              onPress={() => handleOptionPress(option)}
+              key={i + option.label}
+            >
               <SelectionItem option={option} />
-            )}
-          </TouchableOpacity>
-        ))}
+            </TouchableOpacity>
+          )
+        )}
       </Sheet>
     </View>
   );

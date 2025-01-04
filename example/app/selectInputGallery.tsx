@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useThemedStyle, SelectInput, Option, Text } from "atlas-design-system";
 import { getGalleryStyles } from "@/common";
@@ -68,16 +68,18 @@ export default function SelectInputGallery() {
             selected: selectedOption?.value === "honey",
           },
         ]}
-        renderOption={(option) => {
+        renderOption={(option, onPress) => {
           return (
-            <View
+            <TouchableOpacity
+              key={option.value}
               style={[
                 styles.customOption,
                 option.selected && styles.customOptionSelected,
               ]}
+              onPress={() => onPress(option)}
             >
               <Text>{option.label}</Text>
-            </View>
+            </TouchableOpacity>
           );
         }}
         onChange={setSelectedOption}
