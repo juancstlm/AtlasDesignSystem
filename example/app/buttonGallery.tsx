@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { ScrollView, View, StyleSheet, Alert } from "react-native";
 
-import { Button, useThemedStyle, TextInput } from "atlas-design-system";
+import { Button, useThemedStyle, TextInput, Text } from "atlas-design-system";
 
 export default function ButtonGallery() {
   const styles = useStyles().styles;
@@ -9,8 +9,8 @@ export default function ButtonGallery() {
   const [sampleText, setSetsampleText] = useState("The quick brown fox");
 
   const onPress = () => {
-    Alert.alert('Alert', 'button pressed')
-  }
+    Alert.alert("Alert", "button pressed");
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -20,10 +20,15 @@ export default function ButtonGallery() {
         onChangeText={setSetsampleText}
       />
       <View style={styles.section}>
+        <Text>{"Primary"}</Text>
         <Button onPress={onPress} text={sampleText}></Button>
-        <Button appearance='secondary' onPress={onPress} text={sampleText}></Button>
+        <Text>{"Secondary"}</Text>
+        <Button appearance="secondary" onPress={onPress} text={sampleText} />
+        <Text>{"Loading"}</Text>
         <Button loading onPress={onPress} text={sampleText}></Button>
-        <Button onPress={onPress} appearance='destructive' text={sampleText}></Button>
+        <Text>{"Destructive"}</Text>
+        <Button onPress={onPress} appearance="destructive" text={sampleText} />
+        <Text>{"Disabled"}</Text>
         <Button disabled text={sampleText}></Button>
       </View>
     </ScrollView>

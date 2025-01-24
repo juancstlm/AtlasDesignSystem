@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   StyleProp,
@@ -9,15 +9,8 @@ import {
 import { useButtonStyles } from "./styles/ButtonStyle";
 import Text from "../Text";
 
-export enum ButtonType {
-  Primary,
-  Destructive,
-}
-
 export interface ButtonProps {
   disabled?: boolean;
-  // Deprecated use appearance
-  type?: ButtonType;
   onPress?: () => void;
   text: string;
   loading?: boolean;
@@ -25,33 +18,6 @@ export interface ButtonProps {
   containerStyle?: StyleProp<ViewStyle>;
   appearance?: "primary" | "secondary" | "destructive";
 }
-
-const getButtonStyle = (
-  styles: {
-    disabled: StyleProp<ViewStyle>;
-    primary: StyleProp<ViewStyle>;
-    secondary: StyleProp<ViewStyle>;
-    destructive: StyleProp<ViewStyle>;
-  },
-  appearance: ButtonProps["appearance"],
-  disabled: boolean
-) => {
-  const style = [styles.primary];
-
-  if (appearance === "secondary") {
-    style.push(styles.secondary);
-  }
-
-  if (appearance === "destructive") {
-    style.push(styles.destructive);
-  }
-
-  if (disabled) {
-    style.push(styles.disabled);
-  }
-
-  return style;
-};
 
 export const Button = ({
   testID,
@@ -61,45 +27,23 @@ export const Button = ({
   loading,
   containerStyle = {},
   appearance = "primary",
-  type,
 }: ButtonProps) => {
-  const { styles, theme } = useButtonStyles();
-  const buttonStyle = useMemo(() => {
-    let _apperance = appearance;
-
-    if (type) {
-      _apperance = type === ButtonType.Destructive ? "destructive" : "primary";
-    }
-
-    return getButtonStyle(
-      {
-        disabled: styles.disabled,
-        primary: styles.default,
-        destructive: styles.destructiveContainer,
-        secondary: styles.secondary,
-      },
-      _apperance,
-      disabled
-    );
-  }, [styles, appearance, disabled, type]);
+  const { buttonStyle, styles, textStyle } = useButtonStyles(
+    appearance,
+    disabled
+  );
 
   return (
     <TouchableOpacity
       testID={testID}
-      style={[buttonStyle, disabled && styles.disabled, containerStyle]}
+      style={[buttonStyle, containerStyle]}
       onPress={onPress}
       disabled={disabled || loading}
     >
       {loading ? (
-        <ActivityIndicator
-          size="small"
-          color={theme.colors.foregroundOnPrimary}
-        />
+        <ActivityIndicator size="small" color={styles.loadingIndicator.color} />
       ) : (
-        <Text
-          category="h3"
-          style={[styles.defaultText, disabled && styles.disabledText]}
-        >
+        <Text category="h3" style={textStyle}>
           {text}
         </Text>
       )}
