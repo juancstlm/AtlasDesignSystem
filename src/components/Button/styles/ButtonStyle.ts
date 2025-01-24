@@ -56,9 +56,9 @@ export const useButtonStyles = (
   const styles = useThemedStyle(
     useCallback(
       (t) => {
-        const theme = t;
+        let theme = t;
         if (themeOverride) {
-          t = themeOverride;
+          theme = themeOverride;
         }
         return StyleSheet.create({
           default: {
