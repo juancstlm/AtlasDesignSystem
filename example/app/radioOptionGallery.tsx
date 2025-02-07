@@ -1,12 +1,7 @@
 import { ScrollView, View, StyleSheet } from "react-native";
 import { useThemedStyle, RadioOptionItem } from "atlas-design-system";
 import { useCallback, useState } from "react";
-
-const CustomItem = ({ color }: { color: string }) => {
-  const styles = useStyles().styles;
-
-  return <View style={[styles.item, { backgroundColor: color }]} />;
-};
+import CustomItem from "@/components/CustomView";
 
 export default function RadioOptionGallery() {
   const styles = useStyles().styles;
@@ -67,10 +62,6 @@ const useStyles = () =>
             rowGap: t.size.baseSize * 4,
             paddingVertical: t.size.baseSize * 4,
             paddingHorizontal: t.size.baseSize * 4,
-          },
-          item: {
-            width: 24,
-            height: 24,
           },
         }),
       []

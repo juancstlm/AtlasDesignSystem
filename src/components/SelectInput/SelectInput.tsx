@@ -10,9 +10,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
 } from "react-native-reanimated";
-import IonIcons from "react-native-vector-icons/Ionicons";
 
 import Text from "../Text";
 import Sheet from "../Sheet";
@@ -20,8 +18,8 @@ import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 import { Option } from "./types";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
-import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
 import SelectionItem from "./components/SelectionItem";
+import Chevron from "../Chevron";
 
 export type SelectInputProps<T> = {
   caption?: string;
@@ -54,7 +52,6 @@ export function SelectInput<T>({
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const animatedValue = useSharedValue(value ? 1 : 0);
-  const rotation = useSharedValue(sheetOpen ? 1 : 0);
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
     styles.itemContainer.borderColor
   );
@@ -70,10 +67,6 @@ export function SelectInput<T>({
         : styles.itemContainer.borderColor
     );
   }, [error, sheetOpen]);
-
-  useEffect(() => {
-    rotation.value = withTiming(sheetOpen ? 1 : 0, DEFAULT_TIMING_CONFIG);
-  }, [sheetOpen]);
 
   useEffect(() => {
     animatedValue.value = value ? 1 : 0;
@@ -94,14 +87,6 @@ export function SelectInput<T>({
       transform: [{ translateY: animatedValue.value * 6 }],
     };
   }, [animatedValue]);
-
-  const animatedChevronStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { rotateX: `${interpolate(rotation.value, [0, 1], [0, 180])}deg` },
-      ],
-    };
-  }, [rotation]);
 
   const handleOptionPress = useCallback((option: Option<T>) => {
     onChange(option);
@@ -124,13 +109,7 @@ export function SelectInput<T>({
               </Text>
             )}
           </Animated.View>
-          <Animated.View style={animatedChevronStyle}>
-            <IonIcons
-              style={styles.chevron}
-              name="chevron-down-outline"
-              size={20}
-            />
-          </Animated.View>
+          <Chevron direction={sheetOpen ? "up" : "down"} />
         </Animated.View>
       </TouchableOpacity>
       {!!caption && <MenuItemDescription description={caption} />}

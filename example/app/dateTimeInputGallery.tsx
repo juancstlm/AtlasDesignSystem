@@ -10,11 +10,10 @@ export default function DateTimeInputGallery() {
   const [date, setDate] = useState(new Date());
 
   const error = useMemo(() => {
-    console.log({ date });
     if (moment(date).isBefore(moment(), "day")) {
       return;
     }
-    return "Date must be in past";
+    return "Date must be in the past";
   }, [date]);
 
   return (

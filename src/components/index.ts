@@ -12,6 +12,8 @@ export * from "./SelectInput";
 export * from "./Search";
 export * from "./SegmentedControl";
 export * from "./RadioOptionItem";
+export * from "./RadioOptionInput";
+export * from "./Chevron";
 
 // Forms
 export * from "./Forms";

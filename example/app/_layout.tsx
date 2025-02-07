@@ -33,6 +33,10 @@ export default function RootLayout() {
           options={{ title: "Radio Option" }}
         />
         <Stack.Screen
+          name="radioOptionInputGallery"
+          options={{ title: "Radio Option Input" }}
+        />
+        <Stack.Screen
           name="textInputGallery"
           options={{ title: "Text Input" }}
         />
