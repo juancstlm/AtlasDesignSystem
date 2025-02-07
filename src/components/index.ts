@@ -11,6 +11,7 @@ export * from "./TitleBar";
 export * from "./SelectInput";
 export * from "./Search";
 export * from "./SegmentedControl";
+export * from "./RadioOptionItem";
 
 // Forms
 export * from "./Forms";

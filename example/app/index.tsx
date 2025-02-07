@@ -22,6 +22,12 @@ export default function Index() {
       />
       <NavigationListRow
         onPress={() => {
+          router.navigate("/radioOptionGallery");
+        }}
+        label="Radio Option"
+      />
+      <NavigationListRow
+        onPress={() => {
           router.navigate("/dateTimeInputGallery");
         }}
         label="Date Time Input"
