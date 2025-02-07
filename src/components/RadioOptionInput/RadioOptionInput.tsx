@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { useThemedStyle } from "../../hooks";
 import { Option } from "../SelectInput/types";
 import Sheet from "../Sheet";
@@ -18,6 +24,7 @@ type RadioOptionInputProps<T> = {
     onPress: (option: Option<T>) => void
   ) => React.ReactNode;
   renderValue?: (option?: Option<T>) => React.ReactNode;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 export function RadioOptionInput<T>({
   caption,
@@ -26,6 +33,7 @@ export function RadioOptionInput<T>({
   onChange,
   renderOption,
   renderValue,
+  containerStyle = {},
 }: RadioOptionInputProps<T>) {
   const styles = useStyles().styles;
   const [sheetOpen, setSheetOpen] = React.useState(false);
@@ -41,7 +49,7 @@ export function RadioOptionInput<T>({
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <Text>{label}</Text>
         <TouchableOpacity
           onPress={() => setSheetOpen(true)}
@@ -76,7 +84,7 @@ const useStyles = () =>
       (t) =>
         StyleSheet.create({
           container: {
-            padding: t.size.baseSize * 4,
+            // paddingVertical: t.size.baseSize * 4,
           },
           chevron: {
             paddingRight: t.size.baseSize * 2,
