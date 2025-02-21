@@ -34,6 +34,12 @@ export default function Index() {
       />
       <NavigationListRow
         onPress={() => {
+          router.navigate("/checkboxOptionInputGallery");
+        }}
+        label="Checkbox Option Input"
+      />
+      <NavigationListRow
+        onPress={() => {
           router.navigate("/dateTimeInputGallery");
         }}
         label="Date Time Input"
@@ -55,7 +61,7 @@ export default function Index() {
           router.navigate("/switchToggleInputGallery");
         }}
         label="Switch Toggle"
-      ></NavigationListRow>
+      />
       <NavigationListRow
         onPress={() => {
           router.navigate("/textGallery");

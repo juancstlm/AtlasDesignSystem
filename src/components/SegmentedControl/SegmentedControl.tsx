@@ -5,10 +5,11 @@ import {
   StyleProp,
   Pressable,
 } from "react-native";
+import { useCallback } from "react";
+
+import { useThemedStyle } from "../../hooks";
 import { Text } from "../Text";
 import { Option } from "../SelectInput/types";
-import { useThemedStyle } from "../../hooks";
-import { useCallback } from "react";
 import { FieldError } from "../FieldError/FieldError";
 import { MenuItemDescription } from "../MenuItemDescription";
 
@@ -77,15 +78,19 @@ export function SegmentedControl<T>({
 
 export default SegmentedControl;
 
-function scaleBorderRadius(originalRadius: number, originalSize: number, newSize: number) {
-    if (originalSize === 0) {
-      throw new Error("Original size cannot be zero.");
-    }
-  
-    const scalingFactor = newSize / originalSize;
-    const newRadius = originalRadius * scalingFactor;
-    return newRadius;
+function scaleBorderRadius(
+  originalRadius: number,
+  originalSize: number,
+  newSize: number
+) {
+  if (originalSize === 0) {
+    throw new Error("Original size cannot be zero.");
   }
+
+  const scalingFactor = newSize / originalSize;
+  const newRadius = originalRadius * scalingFactor;
+  return newRadius;
+}
 
 const useStyles = () =>
   useThemedStyle(
@@ -106,7 +111,11 @@ const useStyles = () =>
           optionContainer: {
             flex: 1,
             backgroundColor: `${t.colors.backgroundPrimary}90`,
-            borderRadius: scaleBorderRadius(t.borderRadius, t.size.baseSize * 9, t.size.baseSize * 7.5),
+            borderRadius: scaleBorderRadius(
+              t.borderRadius,
+              t.size.baseSize * 9,
+              t.size.baseSize * 7.5
+            ),
             height: t.size.baseSize * 7.5,
             justifyContent: "center",
             alignItems: "center",

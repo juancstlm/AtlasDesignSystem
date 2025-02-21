@@ -80,7 +80,7 @@ export const BottomSheet = ({ open, children, height, setOpen }: Props) => {
           setOpen(false);
         }}
         style={styles.wrapper}
-      ></Pressable>
+      />
       <Animated.View style={[styles.sheet, animatedStyle]}>
         {children}
       </Animated.View>

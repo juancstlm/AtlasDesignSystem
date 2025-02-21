@@ -14,6 +14,8 @@ export * from "./SegmentedControl";
 export * from "./RadioOptionItem";
 export * from "./RadioOptionInput";
 export * from "./Chevron";
+export * from "./CheckboxOptionInput";
+export * from "./CheckboxOptionItem";
 
 // Forms
 export * from "./Forms";

@@ -1,8 +1,9 @@
 import { FieldProps, useField } from "informed";
+import { useMemo } from "react";
+
 import SegmentedControl, {
   SegmentedControlProps,
 } from "../../SegmentedControl";
-import { useMemo } from "react";
 import { Option } from "../../SelectInput/types";
 
 type FormSegmentedControlProps<T> = Omit<

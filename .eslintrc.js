@@ -16,7 +16,13 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react", "react-native", "@typescript-eslint"],
+  plugins: [
+    "import",
+    "unused-imports",
+    "react",
+    "react-native",
+    "@typescript-eslint",
+  ],
   rules: {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -24,6 +30,21 @@ module.exports = {
     "react-native/split-platform-components": "warn",
     "react-native/no-inline-styles": "error",
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "react/self-closing-comp": "error", // Enforce self-closing tags
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        groups: [
+          "external",
+          "builtin",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+        ],
+      },
+    ],
   },
   settings: {
     react: {

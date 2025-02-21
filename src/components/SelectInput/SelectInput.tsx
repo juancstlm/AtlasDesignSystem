@@ -16,10 +16,12 @@ import Text from "../Text";
 import Sheet from "../Sheet";
 import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
-import { Option } from "./types";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
-import SelectionItem from "./components/SelectionItem";
 import Chevron from "../Chevron";
+
+import { Option } from "./types";
+import SelectionItem from "./components/SelectionItem";
+
 
 export type SelectInputProps<T> = {
   caption?: string;

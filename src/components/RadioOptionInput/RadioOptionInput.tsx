@@ -6,6 +6,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+
 import { useThemedStyle } from "../../hooks";
 import { Option } from "../SelectInput/types";
 import Sheet from "../Sheet";
@@ -64,7 +65,7 @@ export function RadioOptionInput<T>({
       <Sheet header={label} open={sheetOpen} setOpen={setSheetOpen}>
         {options.map((option) => {
           return renderOption ? (
-            renderOption(option, onChange)
+            renderOption(option, handleOptionPress)
           ) : (
             <RadioOptionItem
               option={option}
@@ -83,13 +84,7 @@ const useStyles = () =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          container: {
-            // paddingVertical: t.size.baseSize * 4,
-          },
-          chevron: {
-            paddingRight: t.size.baseSize * 2,
-            color: t.colors.foreground,
-          },
+          container: {},
           valueDisplayContainer: {
             marginTop: t.size.baseSize * 1,
             flexDirection: "row",

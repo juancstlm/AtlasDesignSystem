@@ -1,6 +1,7 @@
 import { FieldProps, useField } from "informed";
-import SelectInput, { SelectInputProps } from "../../SelectInput";
 import { useMemo } from "react";
+
+import SelectInput, { SelectInputProps } from "../../SelectInput";
 import { Option } from "../../SelectInput/types";
 
 type FormSelectInputProps<T> = Omit<SelectInputProps<T>, "options"> & {

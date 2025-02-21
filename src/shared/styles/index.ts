@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { StyleSheet } from "react-native";
+
 import { useThemedStyle } from "../../hooks";
 
 export const MENU_ITEM_HEIGHT = 40;

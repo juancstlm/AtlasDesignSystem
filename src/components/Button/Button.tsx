@@ -6,8 +6,9 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { useButtonStyles } from "./styles/ButtonStyle";
 import Text from "../Text";
+
+import { useButtonStyles } from "./styles/ButtonStyle";
 
 export interface ButtonProps {
   disabled?: boolean;

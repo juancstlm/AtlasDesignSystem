@@ -37,6 +37,10 @@ export default function RootLayout() {
           options={{ title: "Radio Option Input" }}
         />
         <Stack.Screen
+          name="checkboxOptionInputGallery"
+          options={{ title: "Checkbox Option Input" }}
+        />
+        <Stack.Screen
           name="textInputGallery"
           options={{ title: "Text Input" }}
         />

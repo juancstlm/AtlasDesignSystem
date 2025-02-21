@@ -13,22 +13,23 @@
   ],
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}' && tsc --noEmit",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "test": "test",
     "example": "yarn --cwd example",
     "build": "tsc",
     "patch": "npm version patch",
     "minor": "npm version minor",
     "watch": "tsc --watch",
-    "publish:dryrun": "npm publish --dry-run"
+    "publish:dryrun": "npm publish --dry-run",
+    "publish": "yarn build && npm publish"
   },
   "keywords": [
     "react-native",
     "native"
   ],
-  "dependencies": {},
   "peerDependencies": {
-    "informed": ">=4.0.0",
     "@react-native-community/datetimepicker": ">=8.0.0",
+    "informed": ">=4.0.0",
     "moment": ">=2.24.0",
     "react": ">=17.0.1",
     "react-native": ">=0.64.1",
@@ -43,8 +44,10 @@
     "@typescript-eslint/eslint-plugin": "^8.4.0",
     "@typescript-eslint/parser": "^8.4.0",
     "eslint": "^8.19.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.35.2",
     "eslint-plugin-react-native": "^4.1.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "informed": "^4.60.3",
     "moment": "^2.29.0",
     "react": "^18.2.0",

@@ -2,43 +2,34 @@ import { useCallback } from "react";
 import { Pressable, View, StyleSheet } from "react-native";
 
 import { useThemedStyle } from "../../hooks";
-import Text from "../Text";
 import { Option } from "../SelectInput/types";
-
-export type RadioOptionItemProps<T> = {
+import { Text } from "../Text";
+type CheckboxOptionItemProps<T> = {
   option: Option<T>;
   disabled?: boolean;
   onPress?: (value: T) => void;
   renderItem?: (option: Option<T>) => React.ReactNode;
 };
-
-export function RadioOptionItem<T>({
+export default function CheckboxOptionItem<T>({
   option,
   onPress,
   renderItem,
   disabled,
-}: RadioOptionItemProps<T>) {
-  const { label, value, selected } = option;
+}: CheckboxOptionItemProps<T>) {
+  const { label, selected } = option;
   const styles = useStyles(selected).styles;
 
   return (
     <Pressable
-      onPress={() => onPress?.(value)}
+      onPress={() => onPress?.(option.value)}
       style={styles.itemContainer}
-      disabled={disabled || !onPress}
+      disabled={disabled}
     >
       <View style={styles.itemContent}>
-        <View
-          style={[
-            styles.radioContainer,
-            disabled && styles.radioContainerDisabled,
-          ]}
-        >
-          {selected && <View style={styles.radio} />}
+        <View style={styles.checkboxContainer}>
+          {selected && <View style={styles.checkbox} />}
         </View>
-        {!renderItem && (
-          <Text contrast={disabled ? "low" : "high"}>{label}</Text>
-        )}
+        {!renderItem && <Text>{label}</Text>}
         {renderItem && renderItem(option)}
       </View>
     </Pressable>
@@ -59,27 +50,21 @@ const useStyles = (selected: boolean) =>
             alignItems: "center",
             gap: t.size.baseSize * 2,
           },
-          radioContainer: {
+          checkboxContainer: {
             width: t.size.baseSize * 4,
             height: t.size.baseSize * 4,
-            borderRadius: t.size.baseSize * 2,
-            borderWidth: t.borderWidth,
+            borderRadius: t.size.baseSize * 1,
+            borderWidth: t.size.baseSize / 2,
             borderColor: selected ? t.colors.primary : t.colors.border,
             justifyContent: "center",
             alignItems: "center",
           },
-          radioContainerDisabled: {
-            borderColor: t.colors.backgroundOnPrimary,
-          },
-          radio: {
+          checkbox: {
             width: t.size.baseSize * 2,
             height: t.size.baseSize * 2,
-            borderRadius: t.size.baseSize,
-            backgroundColor: t.colors.primary,
+            backgroundColor: selected ? t.colors.primary : undefined,
           },
         }),
       [selected]
     )
   );
-
-export default RadioOptionItem;

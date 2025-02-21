@@ -20,7 +20,7 @@ export const DragHandle = ({ size = "medium" }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.handle}></View>
+      <View style={styles.handle} />
     </View>
   );
 };
