@@ -294,7 +294,7 @@ const useStyles = (disabled: boolean, error: boolean) =>
           },
           label: getLabelStyle(disabled, error, {
             default: {
-              color: theme.colors.foreground,
+              color: theme.colors.foregroundHighContrast,
               ...theme.typography.p1,
             },
             disabled: {

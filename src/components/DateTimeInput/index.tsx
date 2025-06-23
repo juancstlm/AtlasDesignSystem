@@ -208,7 +208,7 @@ const useStyles = (disabled: boolean) =>
           },
           label: {
             color: !disabled
-              ? t.colors.foreground
+              ? t.colors.foregroundHighContrast
               : t.colors.foregroundLowContrast,
             ...t.typography.p1,
           },

@@ -1,2 +1,2 @@
-export { default } from "./CheckboxOptionItem";
+export { default as CheckboxOptionItem } from "./CheckboxOptionItem";
 export * from "./CheckboxOptionItem";

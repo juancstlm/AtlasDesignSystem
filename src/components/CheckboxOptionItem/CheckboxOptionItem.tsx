@@ -4,7 +4,7 @@ import { Pressable, View, StyleSheet } from "react-native";
 import { useThemedStyle } from "../../hooks";
 import { Option } from "../SelectInput/types";
 import { Text } from "../Text";
-type CheckboxOptionItemProps<T> = {
+export type CheckboxOptionItemProps<T> = {
   option: Option<T>;
   disabled?: boolean;
   onPress?: (value: T) => void;

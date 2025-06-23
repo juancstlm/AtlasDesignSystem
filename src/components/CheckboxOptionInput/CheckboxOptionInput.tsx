@@ -13,7 +13,7 @@ import Sheet from "../Sheet";
 import Text from "../Text";
 import Chevron from "../Chevron";
 import { MenuItemDescription } from "../MenuItemDescription";
-import CheckboxOptionItem from "../CheckboxOptionItem";
+import { CheckboxOptionItem } from "../CheckboxOptionItem";
 import Button from "../Button";
 
 type CheckboxOptionInputProps<T> = {

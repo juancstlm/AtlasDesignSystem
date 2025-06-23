@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-
 import { useThemedStyle, Search, Text } from "atlas-design-system";
 
 const f1Drivers2024 = [
@@ -47,7 +46,9 @@ export default function SearchGallery() {
         searchQuery={query}
         onChangeText={setQuery}
       />
-      {driversFiltered.map((driver) => (<Text key={driver}>{driver}</Text>))}
+      {driversFiltered.map((driver) => (
+        <Text key={driver}>{driver}</Text>
+      ))}
     </ScrollView>
   );
 }
