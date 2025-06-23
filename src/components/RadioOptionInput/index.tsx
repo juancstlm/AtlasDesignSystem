@@ -1,2 +1,2 @@
-export { default } from "./RadioOptionInput";
+export { default as RadioOptionInput } from "./RadioOptionInput";
 export * from "./RadioOptionInput";

@@ -18,6 +18,8 @@ export type NavigationListRowProps = {
   disabled?: boolean;
   defaultPadding?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
+  iconRight?: React.ReactNode;
+  iconRightName?: string;
 };
 
 export const NavigationListRow = ({
@@ -27,6 +29,8 @@ export const NavigationListRow = ({
   disabled,
   defaultPadding = true,
   containerStyle = {},
+  iconRight,
+  iconRightName = "chevron-forward-outline",
 }: NavigationListRowProps) => {
   const styles = useStyles(defaultPadding).styles;
 
@@ -40,11 +44,11 @@ export const NavigationListRow = ({
         <Text category="h3">{label}</Text>
         {caption && <Text contrast="low">{caption}</Text>}
       </View>
-      <IonIcons
-        style={styles.chevronRight}
-        size={18}
-        name="chevron-forward-outline"
-      />
+      {iconRight ? (
+        iconRight
+      ) : (
+        <IonIcons style={styles.chevronRight} size={18} name={iconRightName} />
+      )}
     </TouchableOpacity>
   );
 };

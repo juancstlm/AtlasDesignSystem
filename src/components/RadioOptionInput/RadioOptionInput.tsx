@@ -43,10 +43,13 @@ export function RadioOptionInput<T>({
     return options.find((v) => v.selected);
   }, [options]);
 
-  const handleOptionPress = useCallback((option: Option<T>) => {
-    onChange(option);
-    setSheetOpen(false);
-  }, []);
+  const handleOptionPress = useCallback(
+    (option: Option<T>) => {
+      onChange(option);
+      setSheetOpen(false);
+    },
+    [onChange]
+  );
 
   return (
     <>

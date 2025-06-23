@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { Alert, ScrollView, StyleSheet } from "react-native";
-
 import { NavigationListRow, useThemedStyle } from "atlas-design-system";
 
 export default function NavigationListRowGallery() {
@@ -8,12 +7,20 @@ export default function NavigationListRowGallery() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <NavigationListRow label="Max Verstappen" caption='3x World Champion' onPress={() => {
-        Alert.alert('Max Max Max', 'Yes bois dis feels good!')
-      }}/>
-      <NavigationListRow label="Lewis Hamilton" caption='7x World Champion' onPress={() => {
-        Alert.alert('Hammer Time', 'Get In There Lewis!!')
-      }} />
+      <NavigationListRow
+        label="Max Verstappen"
+        caption="3x World Champion"
+        onPress={() => {
+          Alert.alert("Max Max Max", "Yes bois dis feels good!");
+        }}
+      />
+      <NavigationListRow
+        label="Lewis Hamilton"
+        caption="7x World Champion"
+        onPress={() => {
+          Alert.alert("Hammer Time", "Get In There Lewis!!");
+        }}
+      />
     </ScrollView>
   );
 }
@@ -24,7 +31,7 @@ const useStyles = () =>
       (t) =>
         StyleSheet.create({
           container: {
-            paddingTop: t.size.baseSize *4,
+            paddingTop: t.size.baseSize * 4,
           },
         }),
       []
