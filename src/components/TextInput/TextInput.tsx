@@ -68,6 +68,8 @@ export type TextInputProps = {
   label: string;
   containerStyle?: StyleProp<ViewStyle>;
   error?: string;
+  multiline?: boolean;
+  numberOfLines?: number;
 } & Omit<RNTextInputProps, "onBlur">;
 
 export const TextInput = forwardRef(
@@ -83,11 +85,13 @@ export const TextInput = forwardRef(
       containerStyle,
       disabled = false,
       error,
+      multiline,
+      numberOfLines,
       ...rest
     }: TextInputProps,
     ref
   ) => {
-    const { styles, theme } = useStyles(disabled, !!error);
+    const { styles, theme } = useStyles(disabled, !!error, !!multiline);
 
     const inputRef = useRef<RNTextInput>(null);
 
@@ -201,7 +205,8 @@ export const TextInput = forwardRef(
                   testID={testId}
                   value={value}
                   style={styles.textInput}
-                  numberOfLines={1}
+                  numberOfLines={numberOfLines}
+                  multiline={multiline}
                   keyboardType={keyboardType}
                   onChangeText={handleOnChangeText}
                   maxLength={40}
@@ -226,7 +231,7 @@ export default TextInput;
 
 TextInput.displayName = "TextInput";
 
-const useStyles = (disabled: boolean, error: boolean) =>
+const useStyles = (disabled: boolean, error: boolean, multiline: boolean) =>
   useThemedStyle(
     useCallback(
       (theme) =>
@@ -241,6 +246,7 @@ const useStyles = (disabled: boolean, error: boolean) =>
           },
           textInput: {
             paddingHorizontal: theme.size.baseSize * 2,
+            height: multiline ? "95%" : "auto",
             ...theme.typography.p1,
             ...getTextInputStyle(disabled, error, {
               disabled: {
@@ -275,7 +281,9 @@ const useStyles = (disabled: boolean, error: boolean) =>
           itemContainer: {
             borderWidth: theme.borderWidth,
             backgroundColor: theme.colors.backgroundOnPrimary,
-            height: theme.size.baseSize * 9,
+            height: multiline
+              ? theme.size.baseSize * 24
+              : theme.size.baseSize * 9,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
             flexDirection: "row",
@@ -290,6 +298,7 @@ const useStyles = (disabled: boolean, error: boolean) =>
           },
           labelContainer: {
             left: theme.size.baseSize * 2,
+            top: multiline ? theme.size.baseSize * 1 : theme.size.baseSize * 2,
             position: "absolute",
           },
           label: getLabelStyle(disabled, error, {
@@ -311,6 +320,6 @@ const useStyles = (disabled: boolean, error: boolean) =>
             marginBottom: theme.size.baseSize * 2,
           },
         }),
-      [disabled, error]
+      [disabled, error, multiline]
     )
   );
