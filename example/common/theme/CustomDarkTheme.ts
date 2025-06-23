@@ -1,6 +1,11 @@
-import { AtlasTheme, FontWeights, Typography } from "../types";
+import {
+  AtlasTheme,
+  FontWeights,
+  Typography,
+  ATLAS_LIGHT,
+} from "atlas-design-system";
 
-const fontFamily = "System";
+const fontFamily = ATLAS_LIGHT.typography.h1.fontFamily;
 const fontWeight: FontWeights = "700";
 
 const typography: Typography = {
@@ -38,39 +43,39 @@ const typography: Typography = {
     fontSize: 12,
     lineHeight: 18,
     fontFamily,
-    fontWeight: "200",
+    fontWeight: "500",
   },
   p3: {
     fontSize: 10,
     lineHeight: 16,
     fontFamily,
-    fontWeight: "200",
+    fontWeight: "400",
   },
 };
 
-export const ATLAS_LIGHT: AtlasTheme = {
+export const CustomDarkTheme: AtlasTheme = {
   size: {
     baseSize: 5,
   },
   borderWidth: 2,
   borderRadius: 10,
-  keyboardAppearance: "light",
+  keyboardAppearance: "dark",
   colors: {
-    primary: "#21b473",
-    primaryLowContrast: "#90d9b9",
-    secondaryPositive: "#02AD5D",
+    primary: "#69EEE0",
+    primaryLowContrast: "#C5FAF5",
+    secondaryPositive: "#69EEE0",
     secondaryNegative: "#f55555",
     secondaryWarning: "#FFC107",
     foreground: "#2D2D2D",
-    foregroundHighContrast: "#0B0B0B",
+    foregroundHighContrast: "#ffffff",
     foregroundLowContrast: "#8A8A8A",
-    foregroundPrimary: "#21b473",
+    foregroundPrimary: "#69EEE0",
     foregroundNegative: "#f55555",
-    foregroundOnPrimary: "#fff",
+    foregroundOnPrimary: "#212122",
     border: "#898989",
-    borderSecondary: "#00000000",
-    backgroundPrimary: "#f1f1f1",
-    backgroundOnPrimary: "#e4e4e4",
+    borderSecondary: "#000000",
+    backgroundPrimary: "#212122",
+    backgroundOnPrimary: "#1a1a1a",
   },
   typography,
   isDarkTheme: false,

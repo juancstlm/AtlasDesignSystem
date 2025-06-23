@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
+import { TitleBar } from "atlas-design-system";
 
-import { ThemeContext, ATLAS_LIGHT, TitleBar } from "atlas-design-system";
+import { ThemeProvider } from "@/common/theme/Provider";
 
 export default function RootLayout() {
   return (
-    <ThemeContext.Provider value={ATLAS_LIGHT}>
+    <ThemeProvider>
       <Stack
         screenOptions={{
           header: ({ options, navigation }) => (
@@ -80,6 +81,6 @@ export default function RootLayout() {
           options={{ title: "Form Segmented Control" }}
         />
       </Stack>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }

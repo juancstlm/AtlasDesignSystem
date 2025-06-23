@@ -110,6 +110,7 @@ const useStyles = (canGoBack: boolean, isModal: boolean) =>
           backButton: {
             height: "100%",
             marginLeft: theme.size.baseSize * 4,
+            color: theme.colors.foregroundHighContrast,
           },
           titleComponentContainer: {
             flex: 1,

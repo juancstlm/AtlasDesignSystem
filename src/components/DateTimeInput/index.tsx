@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DateTimePicker, {
   IOSNativeProps,
   AndroidNativeProps,
@@ -201,9 +201,6 @@ const useStyles = (disabled: boolean) =>
           },
           itemContainerFocused: {
             borderColor: t.colors.border,
-          },
-          itemLabel: {
-            color: t.textPrimary,
           },
           labelContainer: {
             left: t.size.baseSize * 2,

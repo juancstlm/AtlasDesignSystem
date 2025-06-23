@@ -1,11 +1,19 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { router } from "expo-router";
-
-import { NavigationListRow, Text, useThemedStyle } from "atlas-design-system";
+import {
+  NavigationListRow,
+  SwitchToggle,
+  Text,
+  useThemedStyle,
+} from "atlas-design-system";
 import { useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { useThemeId } from "@/common/theme";
 
 export default function Index() {
   const styles = useStyles().styles;
+  const { id, setId } = useThemeId();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <NavigationListRow
@@ -67,13 +75,13 @@ export default function Index() {
           router.navigate("/textGallery");
         }}
         label="Text"
-      ></NavigationListRow>
+      />
       <NavigationListRow
         onPress={() => {
           router.navigate("/buttonGallery");
         }}
         label="Button"
-      ></NavigationListRow>
+      />
       <NavigationListRow
         onPress={() => {
           router.navigate("/sheetGallery");
@@ -119,18 +127,28 @@ export default function Index() {
         }}
         label="Form Segmented Control"
       />
+      <View style={styles.settingsContainer}>
+        <Text category="h2">{"Settings"}</Text>
+        <SwitchToggle
+          label="Dark Mode"
+          value={id === "dark"}
+          onChange={(value) => {
+            setId(value ? "dark" : "light");
+          }}
+        />
+      </View>
     </ScrollView>
   );
 }
 
-const useStyles = () =>
-  useThemedStyle(
+const useStyles = () => {
+  const bottom = useSafeAreaInsets();
+  return useThemedStyle(
     useCallback(
       (t) =>
         StyleSheet.create({
           container: {
-            flex: 1,
-            alignItems: "center",
+            paddingBottom: bottom.bottom + t.size.baseSize * 4,
           },
           sectionHeader: {
             paddingTop: t.size.baseSize * 4,
@@ -138,7 +156,13 @@ const useStyles = () =>
             alignSelf: "flex-start",
             paddingBottom: t.size.baseSize * 2,
           },
+          settingsContainer: {
+            flex: 1,
+            paddingHorizontal: t.size.baseSize * 4,
+            paddingVertical: t.size.baseSize * 4,
+          },
         }),
       []
     )
   );
+};

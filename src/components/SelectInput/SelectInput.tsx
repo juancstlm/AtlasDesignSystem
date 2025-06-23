@@ -164,7 +164,7 @@ const useStyles = () =>
             position: "absolute",
           },
           label: {
-            color: theme.text,
+            color: theme.colors.foregroundHighContrast,
             ...theme.typography.p1,
           },
           descriptionContainer: {

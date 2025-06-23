@@ -27,7 +27,7 @@ export const useMenuItemStyles = () =>
             height: theme.size.baseSize * 9,
           },
           itemLabel: {
-            color: theme.textPrimary,
+            color: theme.colors.foregroundHighContrast,
           },
         }),
       []

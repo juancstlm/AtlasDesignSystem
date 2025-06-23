@@ -68,9 +68,7 @@ const useStyles = (defaultPadding: boolean) =>
           chevronRight: {
             height: "100%",
             flexGrow: 0,
-          },
-          chevronRightTint: {
-            color: t.colors.foregroundLowContrast,
+            color: t.colors.foregroundHighContrast,
           },
         }),
       [defaultPadding]
