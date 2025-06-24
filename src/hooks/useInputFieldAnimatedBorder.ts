@@ -14,14 +14,15 @@ export const useInputFieldAnimatedBorder = (initialColor: string) => {
     inputBorderColor.value = withTiming(color, DEFAULT_TIMING_CONFIG);
   }, []);
 
-  const borderStyle = useAnimatedStyle(() => {
-    return {
+  const borderStyle = useAnimatedStyle(
+    () => ({
       borderColor: inputBorderColor.value,
-    };
-  }, []);
+    }),
+    []
+  );
 
   return {
     animatedBorderStyle: borderStyle,
     setBorderColor,
-  }
+  };
 };

@@ -44,17 +44,18 @@ export const SwitchToggle = ({
     setBorderColor(
       error ? theme.colors.foregroundNegative : styles.itemContainer.borderColor
     );
-  }, [error]);
+  }, [
+    error,
+    theme.colors.foregroundNegative,
+    styles.itemContainer.borderColor,
+  ]);
 
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableOpacity testID={testId} style={touchableStyle}>
         <Animated.View style={[styles.itemContainer, animatedBorderStyle]}>
           <Text numberOfLines={1}>{label}</Text>
-          <Switch
-            onValueChange={onChange}
-            value={value}
-          />
+          <Switch onValueChange={onChange} value={value} />
         </Animated.View>
       </TouchableOpacity>
       {!!error && <FieldError error={error} />}

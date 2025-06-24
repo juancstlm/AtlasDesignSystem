@@ -22,7 +22,6 @@ import Chevron from "../Chevron";
 import { Option } from "./types";
 import SelectionItem from "./components/SelectionItem";
 
-
 export type SelectInputProps<T> = {
   caption?: string;
   label: string;
@@ -68,7 +67,12 @@ export function SelectInput<T>({
         ? styles.itemContainerFocused.borderColor
         : styles.itemContainer.borderColor
     );
-  }, [error, sheetOpen]);
+  }, [
+    error,
+    sheetOpen,
+    styles.itemContainerFocused.borderColor,
+    styles.itemContainer.borderColor,
+  ]);
 
   useEffect(() => {
     animatedValue.value = value ? 1 : 0;
