@@ -21,7 +21,7 @@
     "minor": "npm version minor",
     "watch": "tsc --watch",
     "publish:dryrun": "npm publish --dry-run",
-    "publish": "yarn build && npm publish"
+    "publish:real": "yarn build && npm publish"
   },
   "keywords": [
     "react-native",
