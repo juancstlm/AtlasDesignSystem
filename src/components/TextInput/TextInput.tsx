@@ -111,15 +111,17 @@ export const TextInput = forwardRef(
     );
 
     useEffect(() => {
-      if (inputRef.current?.isFocused()) {
-        return;
-      }
       if (isInitialMount.current) {
         isInitialMount.current = false;
         animatedValue.value = value ? 1 : 0;
+      }
+      if (inputRef.current?.isFocused()) {
         return;
       }
-      animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
+
+      if (!isInitialMount.current) {
+        animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
+      }
     }, [value]);
 
     const animatedLabelStyles = useAnimatedStyle(() => {
