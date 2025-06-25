@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   StyleProp,
   StyleSheet,
@@ -53,6 +59,7 @@ export function SelectInput<T>({
   }, [options]);
 
   const [sheetOpen, setSheetOpen] = useState(false);
+  const isInitialMount = useRef(true);
 
   const animatedValue = useSharedValue(value ? 1 : 0);
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
@@ -77,7 +84,14 @@ export function SelectInput<T>({
   ]);
 
   useEffect(() => {
-    animatedValue.value = withTiming(value ? 1 : 0, { duration: 250 });
+    if (isInitialMount.current) {
+      // skip animation on initial mount we already have the value
+      isInitialMount.current = false;
+      return;
+    } else {
+      // After initial mount, animate the value changes
+      animatedValue.value = withTiming(value ? 1 : 0, { duration: 250 });
+    }
   }, [value]);
 
   const animatedLabelStyles = useAnimatedStyle(() => {
