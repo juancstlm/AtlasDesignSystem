@@ -7,9 +7,11 @@ import {
   ViewStyle,
 } from "react-native";
 import Animated, {
+  Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 
 import Text from "../Text";
@@ -75,15 +77,27 @@ export function SelectInput<T>({
   ]);
 
   useEffect(() => {
-    animatedValue.value = value ? 1 : 0;
+    animatedValue.value = withTiming(value ? 1 : 0, { duration: 250 });
   }, [value]);
 
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
       transform: [
-        { translateY: interpolate(animatedValue.value, [0, 1], [1, -8]) },
+        {
+          translateY: interpolate(
+            animatedValue.value,
+            [0, 1],
+            [1, -8],
+            Extrapolation.CLAMP
+          ),
+        },
       ],
-      fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
+      fontSize: interpolate(
+        animatedValue.value,
+        [0, 1],
+        [14, 10],
+        Extrapolation.CLAMP
+      ),
     };
   }, []);
 
