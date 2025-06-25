@@ -104,13 +104,19 @@ export const TextInput = forwardRef(
       },
     }));
 
-    const animatedValue = useSharedValue(value ? 1 : 0);
+    const animatedValue = useSharedValue(0);
+    const isInitialMount = useRef(true);
     const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
       styles.itemContainer.borderColor
     );
 
     useEffect(() => {
       if (inputRef.current?.isFocused()) {
+        return;
+      }
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        animatedValue.value = value ? 1 : 0;
         return;
       }
       animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);

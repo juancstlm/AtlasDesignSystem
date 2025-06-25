@@ -26,6 +26,7 @@ import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import Chevron from "../Chevron";
+import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
 
 import { Option } from "./types";
 import SelectionItem from "./components/SelectionItem";
@@ -61,7 +62,7 @@ export function SelectInput<T>({
   const [sheetOpen, setSheetOpen] = useState(false);
   const isInitialMount = useRef(true);
 
-  const animatedValue = useSharedValue(value ? 1 : 0);
+  const animatedValue = useSharedValue(0);
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
     styles.itemContainer.borderColor
   );
@@ -87,10 +88,11 @@ export function SelectInput<T>({
     if (isInitialMount.current) {
       // skip animation on initial mount we already have the value
       isInitialMount.current = false;
+      animatedValue.value = value ? 1 : 0;
       return;
     } else {
       // After initial mount, animate the value changes
-      animatedValue.value = withTiming(value ? 1 : 0, { duration: 250 });
+      animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
     }
   }, [value]);
 
