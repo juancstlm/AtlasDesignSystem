@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-
 import { useThemedStyle, SelectInput, Option, Text } from "atlas-design-system";
+
 import { getGalleryStyles } from "@/common";
 
 export default function SelectInputGallery() {
@@ -9,6 +9,11 @@ export default function SelectInputGallery() {
 
   const [selectedOption, setSelectedOption] = useState<Option<string>>();
   const [selectedOption2, setSelectedOption2] = useState<Option<string>>();
+  const [preSelectedOption, setPreSelectedOption] = useState<Option<string>>({
+    value: "honey",
+    label: "Honey",
+    selected: true,
+  });
 
   const error = useMemo(() => {
     if (!selectedOption2) {
@@ -52,6 +57,25 @@ export default function SelectInputGallery() {
         ]}
         onChange={setSelectedOption2}
         label="Select One"
+      />
+
+      <Text>Pre-selected Option</Text>
+      <SelectInput
+        options={[
+          {
+            value: "almond",
+            label: "Almond",
+            selected: preSelectedOption?.value === "almond",
+          },
+          {
+            value: "honey",
+            label: "Honey",
+            selected: preSelectedOption?.value === "honey",
+          },
+        ]}
+        onChange={setPreSelectedOption}
+        label="Pre-selected Example"
+        caption="This starts with 'Honey' already selected"
       />
 
       <Text>Custom Option Render</Text>
