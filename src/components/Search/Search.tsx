@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,13 +7,17 @@ import {
   TouchableOpacity,
   LayoutChangeEvent,
   StyleProp,
-} from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, interpolate, withTiming, Easing } from 'react-native-reanimated';
+} from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  interpolate,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
 
-import TextInput from '../TextInput';
-import Text from '../Text';
-import { useThemedStyle } from '../../hooks';
-
+import { TextInput, Text } from "../../components";
+import { useThemedStyle } from "../../hooks";
 
 const CANCEL_BUTTON_WIDTH = 62;
 
@@ -45,10 +49,14 @@ export const Search = ({
   const focused = useSharedValue(0);
 
   const onFocus = () => {
-    focused.value = withTiming(1, { easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
+    focused.value = withTiming(1, {
+      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+    });
   };
   const onBlur = () => {
-    focused.value = withTiming(0, { easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
+    focused.value = withTiming(0, {
+      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+    });
   };
 
   const animatedCancelButtonStyle = useAnimatedStyle(
@@ -60,7 +68,11 @@ export const Search = ({
 
   const animatedSearchInput = useAnimatedStyle(
     () => ({
-      width: `${interpolate(focused.value, [0, 1], [100, ((minWidth - CANCEL_BUTTON_WIDTH) / minWidth) * 100])}%`,
+      width: `${interpolate(
+        focused.value,
+        [0, 1],
+        [100, ((minWidth - CANCEL_BUTTON_WIDTH) / minWidth) * 100]
+      )}%`,
     }),
     [focused, minWidth]
   );
@@ -76,7 +88,10 @@ export const Search = ({
   };
 
   return (
-    <View style={[styles.searchBarContainer, containerStyle]} onLayout={onLayout}>
+    <View
+      style={[styles.searchBarContainer, containerStyle]}
+      onLayout={onLayout}
+    >
       <Animated.View style={[animatedSearchInput, styles.animatedContainer]}>
         <TextInput
           ref={inputRef}
@@ -85,8 +100,8 @@ export const Search = ({
           onFocus={onFocus}
           onBlur={onBlur}
           autoFocus={autoFocus}
-          returnKeyType={returnKeyType ?? 'search'}
-          label={label || placeholder || 'Enter search term'}
+          returnKeyType={returnKeyType ?? "search"}
+          label={label || placeholder || "Enter search term"}
           onChangeText={onChangeText}
         />
       </Animated.View>
@@ -104,22 +119,22 @@ export default Search;
 const useStyles = () =>
   useThemedStyle(
     useCallback(
-      theme =>
+      (theme) =>
         StyleSheet.create({
           searchBarContainer: {
-            flexDirection: 'row',
-            width: '100%',
+            flexDirection: "row",
+            width: "100%",
           },
           animatedContainer: {
-            width: '100%',
-            justifyContent: 'center',
+            width: "100%",
+            justifyContent: "center",
           },
           cancelButton: {
             flex: 1,
             maxWidth: CANCEL_BUTTON_WIDTH,
             minWidth: CANCEL_BUTTON_WIDTH,
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: "center",
+            alignItems: "center",
           },
           cancelButtonText: {
             color: theme.colors.primary,
