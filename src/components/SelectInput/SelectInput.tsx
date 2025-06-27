@@ -30,7 +30,10 @@ import {
   DEFAULT_TIMING_CONFIG,
   LABEL_INTERPOLATION_OUTPUT_RANGE,
   LABEL_INTERPOLATION_RANGE,
+  ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
 } from "../../constants/animations";
+import { useInputFieldFontSizeInterpolationOutputRange } from "../../hooks/useInputFieldFontSizeInterpolationOutputRange";
+import { FIELD_HEIGHT_MULTIPLIER } from "../../constants";
 
 import { Option } from "./types";
 import SelectionItem from "./components/SelectionItem";
@@ -100,6 +103,9 @@ export function SelectInput<T>({
     }
   }, [value]);
 
+  const labelFontSizeInterpolationOutputRange =
+    useInputFieldFontSizeInterpolationOutputRange();
+
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -114,17 +120,22 @@ export function SelectInput<T>({
       ],
       fontSize: interpolate(
         animatedValue.value,
-        [0, 1],
-        [14, 10],
+        LABEL_INTERPOLATION_RANGE,
+        labelFontSizeInterpolationOutputRange,
         Extrapolation.CLAMP
       ),
     };
-  }, []);
+  }, [labelFontSizeInterpolationOutputRange]);
 
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
       flex: 1,
-      transform: [{ translateY: animatedValue.value * 7 }],
+      transform: [
+        {
+          translateY:
+            animatedValue.value * ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
+        },
+      ],
     };
   }, [animatedValue]);
 
@@ -185,11 +196,11 @@ const useStyles = () =>
             borderColor: theme.colors.backgroundOnPrimary,
             backgroundColor: theme.colors.backgroundOnPrimary,
             borderRadius: theme.borderRadius,
-            minHeight: theme.size.baseSize * 8,
+            minHeight: theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            height: theme.size.baseSize * 9,
+            height: theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
           },
           itemContainerFocused: {
             borderColor: theme.colors.border,

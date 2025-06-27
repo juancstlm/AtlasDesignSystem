@@ -2,8 +2,7 @@ import { useCallback } from "react";
 import { StyleSheet } from "react-native";
 
 import { useThemedStyle } from "../../hooks";
-
-export const MENU_ITEM_HEIGHT = 40;
+import { FIELD_HEIGHT_MULTIPLIER } from "../../constants";
 
 export const useMenuItemStyles = () =>
   useThemedStyle(
@@ -20,11 +19,11 @@ export const useMenuItemStyles = () =>
             backgroundColor: theme.colors.backgroundOnPrimary,
             borderRadius: theme.borderRadius,
             paddingHorizontal: theme.size.baseSize * 2,
-            minHeight: MENU_ITEM_HEIGHT,
+            minHeight: theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            height: theme.size.baseSize * 9,
+            height: theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
           },
           itemLabel: {
             color: theme.colors.foregroundHighContrast,

@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-
 import { SwitchToggle, useThemedStyle } from "atlas-design-system";
 
 export default function DateTimeInputGallery() {
@@ -17,7 +16,12 @@ export default function DateTimeInputGallery() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <SwitchToggle value={value} onChange={setValue} label="Switch Toggle" />
-      <SwitchToggle value={value} onChange={setValue} label="Switch Toggle" caption="With Caption" />
+      <SwitchToggle
+        value={value}
+        onChange={setValue}
+        label="Switch Toggle"
+        caption="With Caption"
+      />
       <SwitchToggle
         error={error}
         value={value}
@@ -35,6 +39,7 @@ const useStyles = () =>
         StyleSheet.create({
           container: {
             paddingTop: t.size.baseSize * 4,
+            rowGap: t.size.baseSize * 4,
             paddingHorizontal: t.size.baseSize * 4,
           },
         }),

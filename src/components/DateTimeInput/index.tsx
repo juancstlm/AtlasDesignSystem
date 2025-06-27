@@ -25,7 +25,13 @@ import { useThemedStyle } from "../../hooks";
 import Button from "../Button";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import { FieldError } from "../FieldError/FieldError";
-import { LABEL_INTERPOLATION_OUTPUT_RANGE, LABEL_INTERPOLATION_RANGE } from "../../constants/animations";
+import {
+  LABEL_INTERPOLATION_OUTPUT_RANGE,
+  LABEL_INTERPOLATION_RANGE,
+  ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
+} from "../../constants/animations";
+import { FIELD_HEIGHT_MULTIPLIER } from "../../constants";
+import { useInputFieldFontSizeInterpolationOutputRange } from "../../hooks/useInputFieldFontSizeInterpolationOutputRange";
 
 export type DateTimeInputProps = {
   label: string;
@@ -97,6 +103,9 @@ export const DateTimeInput = ({
     );
   }, [error, dateSheetOpen]);
 
+  const labelFontSizeInterpolationOutputRange =
+    useInputFieldFontSizeInterpolationOutputRange();
+
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -108,14 +117,23 @@ export const DateTimeInput = ({
           ),
         },
       ],
-      fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
+      fontSize: interpolate(
+        animatedValue.value,
+        LABEL_INTERPOLATION_RANGE,
+        labelFontSizeInterpolationOutputRange
+      ),
     };
-  }, []);
+  }, [labelFontSizeInterpolationOutputRange]);
 
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
       flex: 1,
-      transform: [{ translateY: animatedValue.value * 7 }],
+      transform: [
+        {
+          translateY:
+            animatedValue.value * ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
+        },
+      ],
     };
   });
 
@@ -195,13 +213,13 @@ const useStyles = (disabled: boolean) =>
             backgroundColor: t.colors.backgroundOnPrimary,
             borderRadius: t.borderRadius,
             paddingHorizontal: t.size.baseSize * 2,
-            minHeight: t.size.baseSize * 8,
+            minHeight: t.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
             borderColor: t.colors.backgroundOnPrimary,
             borderWidth: t.borderWidth,
-            height: t.size.baseSize * 9,
+            height: t.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
           },
           itemContainerError: {
             borderColor: t.colors.foregroundNegative,

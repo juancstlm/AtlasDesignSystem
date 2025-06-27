@@ -1,0 +1,1 @@
+export const FIELD_HEIGHT_MULTIPLIER = 10;

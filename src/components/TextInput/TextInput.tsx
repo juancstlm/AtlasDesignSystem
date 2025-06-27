@@ -32,7 +32,10 @@ import {
   DEFAULT_TIMING_CONFIG,
   LABEL_INTERPOLATION_OUTPUT_RANGE,
   LABEL_INTERPOLATION_RANGE,
+  ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
 } from "../../constants/animations";
+import { useInputFieldFontSizeInterpolationOutputRange } from "../../hooks/useInputFieldFontSizeInterpolationOutputRange";
+import { FIELD_HEIGHT_MULTIPLIER } from "../../constants";
 
 const getLabelStyle = (
   disabled: boolean,
@@ -128,6 +131,9 @@ export const TextInput = forwardRef(
       }
     }, [value]);
 
+    const labelFontSizeInterpolationOutputRange =
+      useInputFieldFontSizeInterpolationOutputRange();
+
     const animatedLabelStyles = useAnimatedStyle(() => {
       return {
         transform: [
@@ -139,14 +145,23 @@ export const TextInput = forwardRef(
             ),
           },
         ],
-        fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
+        fontSize: interpolate(
+          animatedValue.value,
+          LABEL_INTERPOLATION_RANGE,
+          labelFontSizeInterpolationOutputRange
+        ),
       };
-    }, []);
+    }, [labelFontSizeInterpolationOutputRange]);
 
     const animatedInputStyles = useAnimatedStyle(() => {
       return {
         flex: 1,
-        transform: [{ translateY: animatedValue.value * 4 }],
+        transform: [
+          {
+            translateY:
+              animatedValue.value * ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
+          },
+        ],
       };
     });
 
@@ -300,8 +315,8 @@ const useStyles = (disabled: boolean, error: boolean, multiline: boolean) =>
             borderWidth: theme.borderWidth,
             backgroundColor: theme.colors.backgroundOnPrimary,
             height: multiline
-              ? theme.size.baseSize * 24
-              : theme.size.baseSize * 9,
+              ? theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER * 2.5
+              : theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
             borderRadius: theme.borderRadius,
             minHeight: theme.size.baseSize * 8,
             flexDirection: "row",
@@ -316,7 +331,9 @@ const useStyles = (disabled: boolean, error: boolean, multiline: boolean) =>
           },
           labelContainer: {
             left: theme.size.baseSize * 2,
-            top: multiline ? theme.size.baseSize * 1 : theme.size.baseSize * 2,
+            top: multiline
+              ? theme.size.baseSize * 1
+              : theme.size.baseSize * 2.5,
             position: "absolute",
           },
           label: getLabelStyle(disabled, error, {

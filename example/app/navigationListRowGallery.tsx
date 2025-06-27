@@ -26,7 +26,6 @@ export default function NavigationListRowGallery() {
 
       <NavigationListRow
         label="Oscar Pastries"
-        caption="The best pastries in the world"
         onPress={() => {
           Alert.alert("Oscar Pastries", "The best pastries in the world");
         }}
