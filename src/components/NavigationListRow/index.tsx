@@ -60,18 +60,17 @@ const useStyles = (defaultPadding: boolean) =>
     useCallback(
       (t) =>
         StyleSheet.create({
-          content: {
-            flexGrow: 1,
-          },
           container: {
-            width: "100%",
             flexDirection: "row",
+            justifyContent: "flex-start",
+            columnGap: t.size.baseSize * 0,
             paddingVertical: t.size.baseSize * 2,
             paddingHorizontal: defaultPadding ? t.size.baseSize * 4 : 0,
           },
+          content: {
+            flex: 1,
+          },
           chevronRight: {
-            height: "100%",
-            flexGrow: 0,
             color: t.colors.foregroundHighContrast,
           },
         }),
