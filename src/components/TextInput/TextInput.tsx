@@ -28,7 +28,11 @@ import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 import { FieldError } from "../FieldError/FieldError";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
-import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
+import {
+  DEFAULT_TIMING_CONFIG,
+  LABEL_INTERPOLATION_OUTPUT_RANGE,
+  LABEL_INTERPOLATION_RANGE,
+} from "../../constants/animations";
 
 const getLabelStyle = (
   disabled: boolean,
@@ -127,7 +131,13 @@ export const TextInput = forwardRef(
     const animatedLabelStyles = useAnimatedStyle(() => {
       return {
         transform: [
-          { translateY: interpolate(animatedValue.value, [0, 1], [1, -8]) },
+          {
+            translateY: interpolate(
+              animatedValue.value,
+              LABEL_INTERPOLATION_RANGE,
+              LABEL_INTERPOLATION_OUTPUT_RANGE
+            ),
+          },
         ],
         fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
       };

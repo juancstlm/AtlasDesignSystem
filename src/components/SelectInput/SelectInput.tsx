@@ -26,7 +26,11 @@ import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import Chevron from "../Chevron";
-import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
+import {
+  DEFAULT_TIMING_CONFIG,
+  LABEL_INTERPOLATION_OUTPUT_RANGE,
+  LABEL_INTERPOLATION_RANGE,
+} from "../../constants/animations";
 
 import { Option } from "./types";
 import SelectionItem from "./components/SelectionItem";
@@ -102,8 +106,8 @@ export function SelectInput<T>({
         {
           translateY: interpolate(
             animatedValue.value,
-            [0, 1],
-            [1, -8],
+            LABEL_INTERPOLATION_RANGE,
+            LABEL_INTERPOLATION_OUTPUT_RANGE,
             Extrapolation.CLAMP
           ),
         },
@@ -120,7 +124,7 @@ export function SelectInput<T>({
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
       flex: 1,
-      transform: [{ translateY: animatedValue.value * 6 }],
+      transform: [{ translateY: animatedValue.value * 7 }],
     };
   }, [animatedValue]);
 

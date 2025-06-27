@@ -25,6 +25,7 @@ import { useThemedStyle } from "../../hooks";
 import Button from "../Button";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import { FieldError } from "../FieldError/FieldError";
+import { LABEL_INTERPOLATION_OUTPUT_RANGE, LABEL_INTERPOLATION_RANGE } from "../../constants/animations";
 
 export type DateTimeInputProps = {
   label: string;
@@ -99,7 +100,13 @@ export const DateTimeInput = ({
   const animatedLabelStyles = useAnimatedStyle(() => {
     return {
       transform: [
-        { translateY: interpolate(animatedValue.value, [0, 1], [1, -8]) },
+        {
+          translateY: interpolate(
+            animatedValue.value,
+            LABEL_INTERPOLATION_RANGE,
+            LABEL_INTERPOLATION_OUTPUT_RANGE
+          ),
+        },
       ],
       fontSize: interpolate(animatedValue.value, [0, 1], [14, 10]),
     };
@@ -108,7 +115,7 @@ export const DateTimeInput = ({
   const animatedValueStyle = useAnimatedStyle(() => {
     return {
       flex: 1,
-      transform: [{ translateY: animatedValue.value * 6 }],
+      transform: [{ translateY: animatedValue.value * 7 }],
     };
   });
 
