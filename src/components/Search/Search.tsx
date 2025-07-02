@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   LayoutChangeEvent,
   StyleProp,
+  TextInputProps,
 } from "react-native";
 import Animated, {
   useSharedValue,
@@ -21,27 +22,29 @@ import { useThemedStyle } from "../../hooks";
 
 const CANCEL_BUTTON_WIDTH = 62;
 
-type Props = {
+type SearchProps = {
   searchQuery: string;
   onChangeText: (text: string) => void;
   rightComponent?: React.ReactNode;
   onPressFilter?: () => void;
   placeholder?: string; // Deprecated use label instead
   label: string;
-  autoFocus?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   returnKeyType?: ReturnKeyType;
-};
+} & Omit<
+  TextInputProps,
+  "returnKeyType" | "onFocus" | "onBlur" | "onChangeText"
+>;
 
-export const Search = ({
+const Search = ({
   searchQuery,
   onChangeText,
   placeholder,
-  autoFocus,
   containerStyle = {},
   returnKeyType,
   label,
-}: Props) => {
+  ...rest
+}: SearchProps) => {
   const { styles } = useStyles();
   const inputRef = useRef<typeof TextInput>(null);
   const [minWidth, setMinWidth] = useState<number>(0);
@@ -78,7 +81,7 @@ export const Search = ({
   );
 
   const onPressCancel = useCallback(() => {
-    onChangeText('');
+    onChangeText("");
     // @ts-expect-error not yet typed
     inputRef?.current?.blur();
   }, [inputRef]);
@@ -95,14 +98,13 @@ export const Search = ({
       <Animated.View style={[animatedSearchInput, styles.animatedContainer]}>
         <TextInput
           ref={inputRef}
-          autoCapitalize="words"
           value={searchQuery}
           onFocus={onFocus}
           onBlur={onBlur}
-          autoFocus={autoFocus}
           returnKeyType={returnKeyType ?? "search"}
           label={label || placeholder || "Enter search term"}
           onChangeText={onChangeText}
+          {...rest}
         />
       </Animated.View>
       <Animated.View style={animatedCancelButtonStyle}>

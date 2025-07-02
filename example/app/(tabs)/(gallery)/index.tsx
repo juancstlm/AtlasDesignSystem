@@ -1,21 +1,16 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { router } from "expo-router";
-import {
-  NavigationListRow,
-  SwitchToggle,
-  Text,
-  useThemedStyle,
-} from "atlas-design-system";
+import { NavigationListRow, Text, useThemedStyle } from "atlas-design-system";
 import { useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useThemeId } from "@/common/theme";
-
 export default function Index() {
   const styles = useStyles().styles;
-  const { id, setId } = useThemeId();
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.sectionHeader} category="h2">
+        Components
+      </Text>
       <NavigationListRow
         onPress={() => {
           router.navigate("/searchGallery");
@@ -127,16 +122,6 @@ export default function Index() {
         }}
         label="Form Segmented Control"
       />
-      <View style={styles.settingsContainer}>
-        <Text category="h2">{"Settings"}</Text>
-        <SwitchToggle
-          label="Dark Mode"
-          value={id === "dark"}
-          onChange={(value) => {
-            setId(value ? "dark" : "light");
-          }}
-        />
-      </View>
     </ScrollView>
   );
 }
@@ -155,11 +140,6 @@ const useStyles = () => {
             paddingHorizontal: t.size.baseSize * 4,
             alignSelf: "flex-start",
             paddingBottom: t.size.baseSize * 2,
-          },
-          settingsContainer: {
-            flex: 1,
-            paddingHorizontal: t.size.baseSize * 4,
-            paddingVertical: t.size.baseSize * 4,
           },
         }),
       []
