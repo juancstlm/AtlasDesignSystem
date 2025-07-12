@@ -89,7 +89,7 @@ const DateTimeInput = ({
     setDate(value);
   }, [dateSheetOpen, value]);
 
-  const animatedValue = useSharedValue(value ? 1 : 0);
+  const animatedValue = useSharedValue(0);
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
     styles.itemContainer.borderColor
   );
