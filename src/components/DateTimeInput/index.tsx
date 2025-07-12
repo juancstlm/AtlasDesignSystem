@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import DateTimePicker, {
   IOSNativeProps,
   AndroidNativeProps,
@@ -14,6 +14,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import IonIcons from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -29,6 +30,7 @@ import {
   LABEL_INTERPOLATION_OUTPUT_RANGE,
   LABEL_INTERPOLATION_RANGE,
   ANIMATED_VALUE_TRANSLATE_Y_MULTIPLIER,
+  DEFAULT_TIMING_CONFIG,
 } from "../../constants/animations";
 import { FIELD_HEIGHT_MULTIPLIER } from "../../constants";
 import { useInputFieldFontSizeInterpolationOutputRange } from "../../hooks/useInputFieldFontSizeInterpolationOutputRange";
@@ -77,6 +79,7 @@ export const DateTimeInput = ({
   const { styles, theme } = useStyles(disabled);
   const [dateSheetOpen, setDateSheetOpen] = useState(false);
   const [date, setDate] = useState(value);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     if (dateSheetOpen) {
@@ -90,6 +93,18 @@ export const DateTimeInput = ({
   const { animatedBorderStyle, setBorderColor } = useInputFieldAnimatedBorder(
     styles.itemContainer.borderColor
   );
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      // skip animation on initial mount we already have the value
+      isInitialMount.current = false;
+      animatedValue.value = value ? 1 : 0;
+      return;
+    } else {
+      // After initial mount, animate the value changes
+      animatedValue.value = withTiming(value ? 1 : 0, DEFAULT_TIMING_CONFIG);
+    }
+  }, [value]);
 
   useEffect(() => {
     if (error) {
@@ -156,7 +171,6 @@ export const DateTimeInput = ({
               </Text>
             </Animated.View>
             <IonIcons
-              style={styles.iconRight}
               color={
                 !disabled
                   ? theme.colors.foreground
@@ -175,9 +189,19 @@ export const DateTimeInput = ({
         header={label}
         open={dateSheetOpen}
         setOpen={setDateSheetOpen}
+        footer={
+          <Button
+            text="Save"
+            onPress={() => {
+              onSave?.(date);
+              setDateSheetOpen(false);
+            }}
+          />
+        }
       >
         <DateTimePicker
           value={date}
+          style={styles.datePicker}
           mode={mode}
           themeVariant={theme.isDarkTheme ? "dark" : "light"}
           display="spinner"
@@ -187,13 +211,6 @@ export const DateTimeInput = ({
             }
             setDate(newDate);
             onChange?.(newDate);
-          }}
-        />
-        <Button
-          text="Save"
-          onPress={() => {
-            onSave?.(date);
-            setDateSheetOpen(false);
           }}
         />
       </Sheet>
@@ -209,6 +226,9 @@ const useStyles = (disabled: boolean) =>
       (t) =>
         StyleSheet.create({
           container: {},
+          datePicker: {
+            height: t.size.baseSize * 60,
+          },
           itemContainer: {
             backgroundColor: t.colors.backgroundOnPrimary,
             borderRadius: t.borderRadius,
@@ -237,7 +257,6 @@ const useStyles = (disabled: boolean) =>
               : t.colors.foregroundLowContrast,
             ...t.typography.p1,
           },
-          iconRight: {},
           value: {
             paddingHorizontal: t.size.baseSize * 0,
           },
