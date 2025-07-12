@@ -21,7 +21,7 @@
     "minor": "npm version minor",
     "watch": "tsc --watch",
     "publish:dryrun": "npm publish --dry-run",
-    "publish:real": "yarn build && npm publish",
+    "publish:real": "yarn build && yarn publish",
     "postinstall": "npx pod-install"
   },
   "keywords": [
