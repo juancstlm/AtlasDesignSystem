@@ -1,6 +1,6 @@
 {
   "name": "atlas-design-system",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "description": "A react native design system for the Atlas workout app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
