@@ -38,6 +38,7 @@ type Props = {
   transparent?: boolean;
   disableScroll?: boolean;
   footer?: React.ReactNode;
+  footerPadding?: number;
 };
 
 const BACKGROUND_OPACITY = 0.6;
@@ -52,9 +53,13 @@ export const Sheet = ({
   transparent = false,
   disableScroll = false,
   footer,
+  footerPadding = 0,
 }: Props) => {
-  const [footerHeight, setFooterHeight] = useState(0);
-  const styles = useStyles(defaultMargins, footerHeight).styles;
+  const [footerHeight, setFooterHeight] = useState(footerPadding);
+  const styles = useStyles(
+    defaultMargins,
+    footerPadding ? footerPadding : footerHeight
+  ).styles;
   const [visible, setVisible] = useState(open);
 
   const opacity = useSharedValue(0);
@@ -117,19 +122,33 @@ export const Sheet = ({
               <Text>{header}</Text>
             </View>
           )}
-          <ScrollView
-            scrollEnabled={!disableScroll}
-            contentContainerStyle={[
-              styles.contentContainer,
-              !!footer && styles.containerWithFooter,
-            ]}
-          >
-            {children}
-          </ScrollView>
+          {!disableScroll && (
+            <ScrollView
+              scrollEnabled={!disableScroll}
+              contentContainerStyle={[
+                styles.contentContainer,
+                !!footer && styles.containerWithFooter,
+              ]}
+            >
+              {children}
+            </ScrollView>
+          )}
+          {disableScroll && (
+            <View
+              style={[
+                styles.contentContainer,
+                !!footer && styles.containerWithFooter,
+              ]}
+            >
+              {children}
+            </View>
+          )}
           {!!footer && (
             <View
               onLayout={(e) => {
-                setFooterHeight(e.nativeEvent.layout.height);
+                if (footerPadding === 0) {
+                  setFooterHeight(e.nativeEvent.layout.height);
+                }
               }}
               style={styles.footer}
             >
