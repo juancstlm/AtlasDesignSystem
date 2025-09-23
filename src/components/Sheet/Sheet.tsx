@@ -26,7 +26,7 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemedStyle } from "../../hooks/useThemedStyle";
-import Text from "../Text";
+import { Text } from "../Text";
 
 type Props = {
   open: boolean;
@@ -43,7 +43,7 @@ type Props = {
 
 const BACKGROUND_OPACITY = 0.6;
 
-export const Sheet = ({
+const Sheet = ({
   open,
   setOpen,
   children,

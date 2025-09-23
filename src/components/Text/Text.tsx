@@ -1,11 +1,17 @@
-import React, { useCallback } from 'react';
-import { StyleProp, StyleSheet, Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native';
+import React, { useCallback } from "react";
+import {
+  StyleProp,
+  StyleSheet,
+  Text as RNText,
+  TextProps as RNTextProps,
+  TextStyle,
+} from "react-native";
 
-import { TypographyStyles, TypographyVariants } from '../../types/typography';
-import { useThemedStyle } from '../../hooks';
+import { TypographyStyles, TypographyVariants } from "../../types/typography";
+import { useThemedStyle } from "../../hooks";
 
-type TextContrast = 'high' | 'medium' | 'low';
-type TextStatus = 'error' | 'informative' | 'warning' | 'success';
+type TextContrast = "high" | "medium" | "low";
+type TextStatus = "error" | "informative" | "warning" | "success";
 
 export interface TextProps extends RNTextProps {
   status?: TextStatus;
@@ -14,7 +20,12 @@ export interface TextProps extends RNTextProps {
   style?: StyleProp<TextStyle>;
 }
 
-const getFontStyle = ({ fontFamily, fontSize, fontWeight, lineHeight }: TypographyStyles): TextStyle => {
+const getFontStyle = ({
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+}: TypographyStyles): TextStyle => {
   return {
     fontFamily,
     fontSize,
@@ -23,38 +34,50 @@ const getFontStyle = ({ fontFamily, fontSize, fontWeight, lineHeight }: Typograp
   };
 };
 
-export const Text = ({ category = 'p1', contrast, style, status, ...rest }: TextProps) => {
+const Text = ({
+  category = "p1",
+  contrast,
+  style,
+  status,
+  ...rest
+}: TextProps) => {
   const styles = useStyles(category, contrast, status).styles;
-  return <RNText style={[styles.fontStyle, styles.colorStyle, style]} {...rest} />;
+  return (
+    <RNText style={[styles.fontStyle, styles.colorStyle, style]} {...rest} />
+  );
 };
 
 export default Text;
 
-const useStyles = (category: TypographyVariants, contrast: TextContrast = 'high', status?: TextStatus) =>
+const useStyles = (
+  category: TypographyVariants,
+  contrast: TextContrast = "high",
+  status?: TextStatus
+) =>
   useThemedStyle(
     useCallback(
-      theme => {
+      (theme) => {
         let color = theme.colors.foregroundHighContrast;
         if (contrast) {
-          if (contrast === 'medium') {
+          if (contrast === "medium") {
             color = theme.colors.foreground;
-          } else if (contrast === 'low') {
+          } else if (contrast === "low") {
             color = theme.colors.foregroundLowContrast;
           }
         }
         if (status) {
           if (status) {
             switch (status) {
-              case 'error':
+              case "error":
                 color = theme.colors.secondaryNegative;
                 break;
-              case 'informative':
+              case "informative":
                 color = theme.colors.primary;
                 break;
-              case 'warning':
+              case "warning":
                 color = theme.colors.secondaryWarning;
                 break;
-              case 'success':
+              case "success":
                 color = theme.colors.secondaryPositive;
                 break;
               default:

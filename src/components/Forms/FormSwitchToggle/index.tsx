@@ -1,1 +1,1 @@
-export * from './FormSwitchToggle'
+export { default as FormSwitchToggle } from "./FormSwitchToggle";

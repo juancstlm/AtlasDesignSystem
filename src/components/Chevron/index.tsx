@@ -1,2 +1,1 @@
-export * from "./Chevron";
-export { default } from "./Chevron";
+export { default as Chevron } from "./Chevron";

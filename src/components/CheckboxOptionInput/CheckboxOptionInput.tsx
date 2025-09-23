@@ -9,12 +9,12 @@ import {
 
 import { useThemedStyle } from "../../hooks";
 import { Option } from "../SelectInput/types";
-import Sheet from "../Sheet";
-import Text from "../Text";
-import Chevron from "../Chevron";
+import { Sheet } from "../Sheet";
+import { Text } from "../Text";
+import { Chevron } from "../Chevron";
 import { MenuItemDescription } from "../MenuItemDescription";
 import { CheckboxOptionItem } from "../CheckboxOptionItem";
-import Button from "../Button";
+import { Button } from "../Button";
 
 type CheckboxOptionInputProps<T> = {
   caption?: string;
@@ -29,7 +29,8 @@ type CheckboxOptionInputProps<T> = {
   containerStyle?: StyleProp<ViewStyle>;
   placeholder?: string;
 };
-export function CheckboxOptionInput<T>({
+
+function CheckboxOptionInput<T>({
   caption,
   label,
   options = [],

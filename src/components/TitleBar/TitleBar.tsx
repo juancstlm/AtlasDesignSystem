@@ -1,10 +1,16 @@
 import React, { useCallback } from "react";
-import { View, StyleSheet, ViewStyle, SafeAreaView, Pressable } from "react-native";
-import IonIcons from 'react-native-vector-icons/Ionicons'
+import {
+  View,
+  StyleSheet,
+  ViewStyle,
+  SafeAreaView,
+  Pressable,
+} from "react-native";
+import IonIcons from "react-native-vector-icons/Ionicons";
 
 import { useThemedStyle } from "../../hooks";
-import Text from "../Text";
-import DragHandle from "../DragHandle";
+import { Text } from "../Text";
+import { DragHandle } from "../DragHandle";
 
 const TitleBarHeight = 60;
 
@@ -18,7 +24,7 @@ export type TitleBarProps = {
   containerStyle?: ViewStyle;
 };
 
-export const TitleBar = ({
+const TitleBar = ({
   title,
   onBackPressed,
   canGoBack = true,
@@ -62,11 +68,7 @@ export const TitleBar = ({
         )}
         {!titleComponent && !!title && (
           <View style={styles.titleContainer}>
-            <Text
-              category="h1"
-              style={styles.headerTitle}
-              numberOfLines={1}
-            >
+            <Text category="h1" style={styles.headerTitle} numberOfLines={1}>
               {title ?? ""}
             </Text>
           </View>
@@ -133,7 +135,7 @@ const useStyles = (canGoBack: boolean, isModal: boolean) =>
           },
           chevronBack: {
             color: theme.colors.foreground,
-          }
+          },
         }),
       []
     )

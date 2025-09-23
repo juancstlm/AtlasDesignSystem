@@ -1,1 +1,1 @@
-export * from './FormDateTimeInput'
+export { default as FormDateTimeInput } from "./FormDateTimeInput";

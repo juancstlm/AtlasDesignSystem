@@ -1,19 +1,20 @@
 import { FieldProps, useField } from "informed";
 import { useMemo } from "react";
 
-import SegmentedControl, {
+import {
   SegmentedControlProps,
+  SegmentedControl,
 } from "../../SegmentedControl";
 import { Option } from "../../SelectInput/types";
 
-type FormSegmentedControlProps<T> = Omit<
+export type FormSegmentedControlProps<T> = Omit<
   SegmentedControlProps<T>,
   "options"
 > & {
   options: Omit<Option<T>, "selected">[];
 };
 
-export function FormSegmentedControl<T>(
+function FormSegmentedControl<T>(
   props: FieldProps<FormSegmentedControlProps<T>>
 ) {
   const { render, userProps, fieldApi, informed, fieldState } = useField<
@@ -46,3 +47,5 @@ export function FormSegmentedControl<T>(
     />
   );
 }
+
+export default FormSegmentedControl;

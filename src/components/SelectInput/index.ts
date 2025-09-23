@@ -1,2 +1,3 @@
-export { default } from './SelectInput'
-export * from './SelectInput'
+export { default as SelectInput } from "./SelectInput";
+export * from "./SelectInput";
+export * from "./types";

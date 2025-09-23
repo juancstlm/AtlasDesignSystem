@@ -19,11 +19,11 @@ import Animated, {
 import IonIcons from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 
-import Sheet from "../Sheet";
-import Text from "../Text";
+import { Sheet } from "../Sheet";
+import { Text } from "../Text";
 import { MenuItemDescription } from "../MenuItemDescription";
 import { useThemedStyle } from "../../hooks";
-import Button from "../Button";
+import { Button } from "../Button";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
 import { FieldError } from "../FieldError/FieldError";
 import {

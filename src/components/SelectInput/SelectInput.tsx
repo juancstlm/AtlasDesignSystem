@@ -20,12 +20,12 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import Text from "../Text";
-import Sheet from "../Sheet";
+import { Sheet } from "../Sheet";
 import { MenuItemDescription } from "../MenuItemDescription";
+import { Text } from "../Text";
 import { useThemedStyle } from "../../hooks";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
-import Chevron from "../Chevron";
+import { Chevron } from "../Chevron";
 import {
   DEFAULT_TIMING_CONFIG,
   LABEL_INTERPOLATION_OUTPUT_RANGE,
@@ -51,7 +51,7 @@ export type SelectInputProps<T> = {
   containerStyle?: StyleProp<ViewStyle>;
 };
 
-export function SelectInput<T>({
+function SelectInput<T>({
   caption,
   label,
   options = [],

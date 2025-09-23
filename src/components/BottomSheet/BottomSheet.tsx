@@ -27,7 +27,7 @@ type Props = {
 
 const DEFAULT_EASING = Easing.bezier(0.5, 0, 0, 0.75);
 
-export const BottomSheet = ({ open, children, height, setOpen }: Props) => {
+const BottomSheet = ({ open, children, height, setOpen }: Props) => {
   const styles = useStyles(height).styles;
   const { height: deviceHeight } = useWindowDimensions();
   const [visible, setVisible] = useState(open);

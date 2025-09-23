@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import IonIcons from "react-native-vector-icons/Ionicons";
 
-import Text from "../Text";
+import { Text } from "../Text";
 import { useThemedStyle } from "../../hooks/useThemedStyle";
 
 export type NavigationListRowProps = {
@@ -22,7 +22,7 @@ export type NavigationListRowProps = {
   iconRightName?: string;
 };
 
-export const NavigationListRow = ({
+const NavigationListRow = ({
   label,
   caption,
   onPress,

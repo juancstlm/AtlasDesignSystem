@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 
-import Text from "../Text";
 import { MenuItemDescription } from "../MenuItemDescription";
+import { Text } from "../Text";
 import { useMenuItemStyles } from "../../shared/styles/index";
 import { FieldError } from "../FieldError/FieldError";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
@@ -25,7 +25,7 @@ export type SwitchToggleProps = {
   error?: string;
 };
 
-export const SwitchToggle = ({
+const SwitchToggle = ({
   testId,
   onChange,
   value,

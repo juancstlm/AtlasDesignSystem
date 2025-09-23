@@ -21,7 +21,8 @@ export type SegmentedControlProps<T> = {
   caption?: string;
   onChange: (newValue: Option<T>) => void;
 };
-export function SegmentedControl<T>({
+
+function SegmentedControl<T>({
   label,
   options = [],
   silenceWarning,

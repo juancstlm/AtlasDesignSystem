@@ -1,2 +1,1 @@
-export { default } from './TitleBar';
-export * from './TitleBar';
+export { default as TitleBar } from './TitleBar';

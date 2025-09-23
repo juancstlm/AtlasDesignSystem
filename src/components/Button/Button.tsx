@@ -1,26 +1,15 @@
 import React from "react";
 import {
   ActivityIndicator,
-  StyleProp,
   TouchableOpacity,
-  ViewStyle,
 } from "react-native";
 
-import Text from "../Text";
+import { Text } from "../Text";
 
 import { useButtonStyles } from "./styles/ButtonStyle";
+import { ButtonProps } from "./types";
 
-export interface ButtonProps {
-  disabled?: boolean;
-  onPress?: () => void;
-  text: string;
-  loading?: boolean;
-  testID?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  appearance?: "primary" | "secondary" | "destructive";
-}
-
-export const Button = ({
+const Button = ({
   testID,
   disabled = false,
   onPress,

@@ -2,7 +2,7 @@ import { StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import { useCallback, useMemo } from "react";
 
 import { useThemedStyle } from "../../../hooks";
-import { ButtonProps } from "../Button";
+import { ButtonProps } from "../types";
 import { AtlasTheme } from "../../../types";
 
 const getButtonStyle = (

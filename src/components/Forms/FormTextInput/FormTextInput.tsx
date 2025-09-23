@@ -3,7 +3,7 @@ import { FieldProps, useField } from 'informed';
 
 import { TextInput, TextInputProps } from '../../TextInput';
 
-export const FormTextInput = (props: FieldProps<TextInputProps>) => {
+const FormTextInput = (props: FieldProps<TextInputProps>) => {
   const { render, userProps, fieldApi, informed, fieldState } = useField<TextInputProps, string>({
     type: 'text',
     ...props,

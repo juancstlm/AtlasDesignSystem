@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { Pressable, View, StyleSheet } from "react-native";
 
 import { useThemedStyle } from "../../hooks";
-import Text from "../Text";
+import { Text } from "../Text";
 import { Option } from "../SelectInput/types";
 
 export type RadioOptionItemProps<T> = {

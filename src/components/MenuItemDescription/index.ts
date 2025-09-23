@@ -1,1 +1,1 @@
-export * from './MenuItemDescription';
+export { default as MenuItemDescription } from "./MenuItemDescription";

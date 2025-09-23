@@ -9,10 +9,10 @@ import {
 
 import { useThemedStyle } from "../../hooks";
 import { Option } from "../SelectInput/types";
-import Sheet from "../Sheet";
-import Text from "../Text";
-import Chevron from "../Chevron";
-import RadioOptionItem from "../RadioOptionItem";
+import { Sheet } from "../Sheet";
+import { Text } from "../Text";
+import { Chevron } from "../Chevron";
+import { RadioOptionItem } from "../RadioOptionItem";
 import { MenuItemDescription } from "../MenuItemDescription";
 
 type RadioOptionInputProps<T> = {

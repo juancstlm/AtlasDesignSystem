@@ -15,7 +15,7 @@ type Props = {
   size?: DragHandleSize;
 };
 
-export const DragHandle = ({ size = "medium" }: Props) => {
+const DragHandle = ({ size = "medium" }: Props) => {
   const styles = useStyles(size).styles;
 
   return (

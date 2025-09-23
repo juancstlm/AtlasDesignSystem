@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useCallback } from "react";
+import { StyleSheet, View } from "react-native";
 
-import Text from '../Text';
-import { useThemedStyle } from '../../hooks';
+import { useThemedStyle } from "../../hooks";
+import { Text } from "../Text";
 
 export type MenuItemDescriptionProps = {
   description: string;
 };
 
-export const MenuItemDescription = ({ description }: MenuItemDescriptionProps) => {
+const MenuItemDescription = ({ description }: MenuItemDescriptionProps) => {
   const styles = useStyles().styles;
   return (
     <View style={styles.descriptionContainer}>
@@ -22,7 +22,7 @@ export const MenuItemDescription = ({ description }: MenuItemDescriptionProps) =
 const useStyles = () =>
   useThemedStyle(
     useCallback(
-      theme =>
+      (theme) =>
         StyleSheet.create({
           descriptionContainer: {
             marginHorizontal: theme.size.baseSize * 2,
@@ -32,3 +32,5 @@ const useStyles = () =>
       []
     )
   );
+
+export default MenuItemDescription;

@@ -1,2 +1,1 @@
-export { default } from "./RadioOptionItem";
-export * from "./RadioOptionItem";
+export { default as RadioOptionItem } from "./RadioOptionItem";

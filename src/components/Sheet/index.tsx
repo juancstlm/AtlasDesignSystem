@@ -1,2 +1,1 @@
-export * from "./Sheet";
-export { default } from "./Sheet";
+export { default as Sheet } from "./Sheet";

@@ -1,14 +1,13 @@
 import { useCallback, useRef } from "react";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
-
 import { FormApi } from "informed";
-
 import {
   useThemedStyle,
   FormSwitchToggle,
   Form,
   Button,
 } from "atlas-design-system";
+
 import { getGalleryStyles } from "@/common";
 
 type FormType = {
@@ -18,7 +17,7 @@ type FormType = {
 
 export default function FormSwitchToggleInputGallery() {
   const styles = useStyles().styles;
-  const formRef = useRef<FormApi>();
+  const formRef = useRef<FormApi>(null);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

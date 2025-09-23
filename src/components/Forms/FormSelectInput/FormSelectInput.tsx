@@ -1,14 +1,14 @@
 import { FieldProps, useField } from "informed";
 import { useMemo } from "react";
 
-import SelectInput, { SelectInputProps } from "../../SelectInput";
+import { SelectInput, SelectInputProps } from "../../SelectInput";
 import { Option } from "../../SelectInput/types";
 
-type FormSelectInputProps<T> = Omit<SelectInputProps<T>, "options"> & {
+export type FormSelectInputProps<T> = Omit<SelectInputProps<T>, "options"> & {
   options: Omit<Option<T>, "selected">[];
 };
 type Props<T> = FieldProps<FormSelectInputProps<T>>;
-export function FormSelectInput<T>(props: Props<T>) {
+function FormSelectInput<T>(props: Props<T>) {
   const { render, userProps, fieldApi, informed, fieldState } = useField<
     FormSelectInputProps<T>,
     T
@@ -40,3 +40,5 @@ export function FormSelectInput<T>(props: Props<T>) {
     />
   );
 }
+
+export default FormSelectInput;

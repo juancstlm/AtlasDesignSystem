@@ -23,8 +23,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import Text from "../Text";
 import { MenuItemDescription } from "../MenuItemDescription";
+import { Text } from "../Text";
 import { useThemedStyle } from "../../hooks";
 import { FieldError } from "../FieldError/FieldError";
 import { useInputFieldAnimatedBorder } from "../../hooks/useInputFieldAnimatedBorder";
@@ -79,7 +79,7 @@ export type TextInputProps = {
   numberOfLines?: number;
 } & Omit<RNTextInputProps, "onBlur">;
 
-export const TextInput = forwardRef(
+const TextInput = forwardRef(
   (
     {
       caption,

@@ -16,6 +16,7 @@ export * from "./RadioOptionInput";
 export * from "./Chevron";
 export * from "./CheckboxOptionInput";
 export * from "./CheckboxOptionItem";
+export * from "./BottomSheet";
 
 // Forms
 export * from "./Forms";
