@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import { ScrollView, View, StyleSheet, Alert } from "react-native";
-
 import { Button, useThemedStyle, TextInput, Text } from "atlas-design-system";
 
 export default function ButtonGallery() {
@@ -21,15 +20,15 @@ export default function ButtonGallery() {
       />
       <View style={styles.section}>
         <Text>{"Primary"}</Text>
-        <Button onPress={onPress} text={sampleText}></Button>
+        <Button onPress={onPress} text={sampleText} />
         <Text>{"Secondary"}</Text>
         <Button appearance="secondary" onPress={onPress} text={sampleText} />
         <Text>{"Loading"}</Text>
-        <Button loading onPress={onPress} text={sampleText}></Button>
+        <Button loading onPress={onPress} text={sampleText} />
         <Text>{"Destructive"}</Text>
         <Button onPress={onPress} appearance="destructive" text={sampleText} />
         <Text>{"Disabled"}</Text>
-        <Button disabled text={sampleText}></Button>
+        <Button disabled text={sampleText} />
       </View>
     </ScrollView>
   );
