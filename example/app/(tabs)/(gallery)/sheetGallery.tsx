@@ -6,6 +6,8 @@ export default function DateTimeInputGallery() {
   const styles = useStyles().styles;
   const [open, setOpen] = useState(false);
   const [openWithFooter, setOpenWithFooter] = useState(false);
+  const [openWithHeaderComponent, setOpenWithHeaderComponent] = useState(false);
+  const [openWithoutHeader, setOpenWithoutHeader] = useState(false);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Button
@@ -20,6 +22,18 @@ export default function DateTimeInputGallery() {
           setOpenWithFooter(true);
         }}
       />
+      <Button
+        text="Open Sheet with Header Component"
+        onPress={() => {
+          setOpenWithHeaderComponent(true);
+        }}
+      />
+      <Button
+        text="Open Sheet without Header"
+        onPress={() => {
+          setOpenWithoutHeader(true);
+        }}
+      />
       <Sheet open={open} setOpen={setOpen} header="Sheet Header">
         <Text>Hi</Text>
       </Sheet>
@@ -29,6 +43,16 @@ export default function DateTimeInputGallery() {
         header="Sheet Header"
         footer={<Button text="Footer" onPress={() => {}} />}
       >
+        <Text>Hi</Text>
+      </Sheet>
+      <Sheet
+        open={openWithHeaderComponent}
+        setOpen={setOpenWithHeaderComponent}
+        headerComponent={<Text>Header Component</Text>}
+      >
+        <Text>Hi</Text>
+      </Sheet>
+      <Sheet open={openWithoutHeader} setOpen={setOpenWithoutHeader}>
         <Text>Hi</Text>
       </Sheet>
     </ScrollView>

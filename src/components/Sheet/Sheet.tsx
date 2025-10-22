@@ -26,7 +26,8 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemedStyle } from "../../hooks/useThemedStyle";
-import { Text } from "../Text";
+
+import SheetHeader from "./components/SheetHeader";
 
 type Props = {
   open: boolean;
@@ -35,6 +36,7 @@ type Props = {
   containerStyle?: StyleProp<ViewStyle>;
   defaultMargins?: boolean;
   header?: string;
+  headerComponent?: React.ReactNode;
   transparent?: boolean;
   disableScroll?: boolean;
   footer?: React.ReactNode;
@@ -50,6 +52,7 @@ const Sheet = ({
   containerStyle,
   defaultMargins = true,
   header,
+  headerComponent,
   transparent = false,
   disableScroll = false,
   footer,
@@ -117,11 +120,7 @@ const Sheet = ({
           exiting={SlideOutDown}
           style={[styles.sheet, containerStyle]}
         >
-          {!!header && (
-            <View style={styles.headerContainer}>
-              <Text>{header}</Text>
-            </View>
-          )}
+          <SheetHeader title={header}>{headerComponent}</SheetHeader>
           {!disableScroll && (
             <ScrollView
               scrollEnabled={!disableScroll}
@@ -183,13 +182,6 @@ const useStyles = (defaultMargins: boolean, footerHeight: number) => {
           wrapper: {
             flex: 1,
             justifyContent: "flex-end",
-          },
-          headerContainer: {
-            paddingVertical: theme.size.baseSize * 3,
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: theme.borderWidth / 2,
-            borderColor: theme.colors.border,
           },
           modalPressable: {
             position: "absolute",
