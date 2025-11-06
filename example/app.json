@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.juancastillom.ads",
       "infoPlist": {
-        "UIDesignRequiresCompatibility": true
+        "UIDesignRequiresCompatibility": false
       }
     },
     "android": {

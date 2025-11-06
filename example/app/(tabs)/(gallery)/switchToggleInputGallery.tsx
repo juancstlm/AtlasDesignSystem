@@ -28,6 +28,18 @@ export default function DateTimeInputGallery() {
         onChange={setValue}
         label="Switch Toggle"
       />
+      <SwitchToggle
+        value={value}
+        onChange={setValue}
+        label="A very long label that should wrapped in two lines"
+        caption="With Caption"
+      />
+      <SwitchToggle
+        value={value}
+        onChange={setValue}
+        label="An even longer label that should wrapp in two lines and be ellipsized at the end"
+        caption="With Caption"
+      />
     </ScrollView>
   );
 }

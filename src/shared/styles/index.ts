@@ -23,6 +23,7 @@ export const useMenuItemStyles = () =>
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            columnGap: theme.size.baseSize * 2,
             height: theme.size.baseSize * FIELD_HEIGHT_MULTIPLIER,
           },
           itemLabel: {

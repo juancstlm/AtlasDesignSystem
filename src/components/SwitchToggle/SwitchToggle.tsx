@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   StyleProp,
+  StyleSheet,
   Switch,
   TouchableOpacity,
   View,
@@ -54,8 +55,18 @@ const SwitchToggle = ({
     <View style={[styles.container, containerStyle]}>
       <TouchableOpacity testID={testId} style={touchableStyle}>
         <Animated.View style={[styles.itemContainer, animatedBorderStyle]}>
-          <Text numberOfLines={1}>{label}</Text>
-          <Switch onValueChange={onChange} value={value} />
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={switchStyle.label}
+          >
+            {label}
+          </Text>
+          <Switch
+            style={switchStyle.switch}
+            onValueChange={onChange}
+            value={value}
+          />
         </Animated.View>
       </TouchableOpacity>
       {!!error && <FieldError error={error} />}
@@ -63,5 +74,16 @@ const SwitchToggle = ({
     </View>
   );
 };
+
+const switchStyle = StyleSheet.create({
+  switch: {
+    alignSelf: "center",
+  },
+  label: {
+    flex: 1,
+    // flexGrow: 0,
+    flexShrink: 1,
+  },
+});
 
 export default SwitchToggle;
