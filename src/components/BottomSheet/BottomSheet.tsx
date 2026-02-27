@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemedStyle } from "../../hooks";
 
-type Props = {
+export type BottomSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   children?: React.ReactNode;
@@ -27,7 +27,7 @@ type Props = {
 
 const DEFAULT_EASING = Easing.bezier(0.5, 0, 0, 0.75);
 
-const BottomSheet = ({ open, children, height, setOpen }: Props) => {
+const BottomSheet = ({ open, children, height, setOpen }: BottomSheetProps) => {
   const styles = useStyles(height).styles;
   const { height: deviceHeight } = useWindowDimensions();
   const [visible, setVisible] = useState(open);

@@ -11,11 +11,11 @@ const SIZE_MAP = {
 
 type DragHandleSize = "small" | "medium" | "large";
 
-type Props = {
+export type DragHandleProps = {
   size?: DragHandleSize;
 };
 
-const DragHandle = ({ size = "medium" }: Props) => {
+const DragHandle = ({ size = "medium" }: DragHandleProps) => {
   const styles = useStyles(size).styles;
 
   return (

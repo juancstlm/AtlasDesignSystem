@@ -10,11 +10,10 @@ const FormTextInput = (props: FieldProps<TextInputProps>) => {
   });
 
   const { value } = informed;
-  const { error } = fieldState
+  const error = fieldState.error as string | undefined;
 
   return render(
     <TextInput
-      //@ts-expect-error no types yet
       error={error}
       onChangeText={fieldApi.setValue}
       {...userProps}

@@ -18,16 +18,18 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { TextInput, Text } from "../../components";
+import { TextInputHandle } from "../TextInput";
 import { useThemedStyle } from "../../hooks";
 
 const CANCEL_BUTTON_WIDTH = 62;
 
-type SearchProps = {
+export type SearchProps = {
   searchQuery: string;
   onChangeText: (text: string) => void;
   rightComponent?: React.ReactNode;
   onPressFilter?: () => void;
-  placeholder?: string; // Deprecated use label instead
+  /** @deprecated Use `label` instead. */
+  placeholder?: string;
   label: string;
   containerStyle?: StyleProp<ViewStyle>;
   returnKeyType?: ReturnKeyType;
@@ -46,7 +48,7 @@ const Search = ({
   ...rest
 }: SearchProps) => {
   const { styles } = useStyles();
-  const inputRef = useRef<typeof TextInput>(null);
+  const inputRef = useRef<TextInputHandle>(null);
   const [minWidth, setMinWidth] = useState<number>(0);
 
   const focused = useSharedValue(0);
@@ -82,8 +84,7 @@ const Search = ({
 
   const onPressCancel = useCallback(() => {
     onChangeText("");
-    // @ts-expect-error not yet typed
-    inputRef?.current?.blur();
+    inputRef.current?.blur();
   }, [inputRef]);
 
   const onLayout = (e: LayoutChangeEvent) => {

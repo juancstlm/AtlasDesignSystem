@@ -35,13 +35,14 @@ function FormSegmentedControl<T>(
     });
   }, [userProps.options, value]);
 
+  const error = fieldState.error as string | undefined;
+
   return render(
     <SegmentedControl
       onChange={(v) => {
         fieldApi.setValue(v.value);
       }}
-      //@ts-expect-error no types yet :(
-      error={fieldState.error}
+      error={error}
       {...userProps}
       options={options}
     />

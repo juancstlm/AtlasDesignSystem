@@ -65,6 +65,11 @@ const getTextInputStyle = (
   return style.default;
 };
 
+export type TextInputHandle = {
+  focus: () => void;
+  blur: () => void;
+};
+
 export type TextInputProps = {
   disabled?: boolean;
   testId?: string;

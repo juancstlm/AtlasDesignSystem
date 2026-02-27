@@ -17,7 +17,7 @@ function FormSelectInput<T>(props: Props<T>) {
   });
 
   const { value } = informed;
-  const { error } = fieldState;
+  const error = fieldState.error as string | undefined;
 
   const options = useMemo(() => {
     return userProps.options.map((v) => {
@@ -33,7 +33,6 @@ function FormSelectInput<T>(props: Props<T>) {
       onChange={(v) => {
         fieldApi.setValue(v.value);
       }}
-      //@ts-expect-error no types yet :(
       error={error}
       {...userProps}
       options={options}

@@ -11,7 +11,7 @@ import IonIcons from "react-native-vector-icons/Ionicons";
 import { useThemedStyle } from "../../hooks";
 import { DEFAULT_TIMING_CONFIG } from "../../constants/animations";
 
-type ChevronProps = {
+export type ChevronProps = {
   direction: "up" | "down";
 };
 export default function Chevron({ direction = "down" }: ChevronProps) {

@@ -11,10 +11,11 @@ const FormDateTimeInput = (props: FieldProps<DateTimeInputProps>) => {
     ...props,
   });
 
+  const error = fieldState.error as string | undefined;
+
   return render(
     <DateTimeInput
-      //@ts-expect-error no types yet
-      error={fieldState.error}
+      error={error}
       value={informed.value}
       onSave={fieldApi.setValue}
       {...userProps}

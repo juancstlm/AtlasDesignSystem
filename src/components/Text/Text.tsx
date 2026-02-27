@@ -10,8 +10,8 @@ import {
 import { TypographyStyles, TypographyVariants } from "../../types/typography";
 import { useThemedStyle } from "../../hooks";
 
-type TextContrast = "high" | "medium" | "low";
-type TextStatus = "error" | "informative" | "warning" | "success";
+export type TextContrast = "high" | "medium" | "low";
+export type TextStatus = "error" | "informative" | "warning" | "success";
 
 export interface TextProps extends RNTextProps {
   status?: TextStatus;

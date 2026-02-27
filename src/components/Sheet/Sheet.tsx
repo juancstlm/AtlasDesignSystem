@@ -29,7 +29,7 @@ import { useThemedStyle } from "../../hooks/useThemedStyle";
 
 import SheetHeader from "./components/SheetHeader";
 
-type Props = {
+export type SheetProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   children?: React.ReactNode;
@@ -57,7 +57,7 @@ const Sheet = ({
   disableScroll = false,
   footer,
   footerPadding = 0,
-}: Props) => {
+}: SheetProps) => {
   const [footerHeight, setFooterHeight] = useState(footerPadding);
   const styles = useStyles(
     defaultMargins,

@@ -16,7 +16,7 @@ import { MenuItemDescription } from "../MenuItemDescription";
 import { CheckboxOptionItem } from "../CheckboxOptionItem";
 import { Button } from "../Button";
 
-type CheckboxOptionInputProps<T> = {
+export type CheckboxOptionInputProps<T> = {
   caption?: string;
   label: string;
   options: Option<T>[];

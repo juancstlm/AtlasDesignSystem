@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { useThemedStyle } from "../../../hooks/useThemedStyle";
 import { Text } from "../../Text";
-type SheetHeaderProps = {
+export type SheetHeaderProps = {
   title?: string;
   children?: React.ReactNode;
 };

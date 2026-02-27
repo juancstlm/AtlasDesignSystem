@@ -15,7 +15,7 @@ import { Chevron } from "../Chevron";
 import { RadioOptionItem } from "../RadioOptionItem";
 import { MenuItemDescription } from "../MenuItemDescription";
 
-type RadioOptionInputProps<T> = {
+export type RadioOptionInputProps<T> = {
   caption?: string;
   label: string;
   options: Option<T>[];

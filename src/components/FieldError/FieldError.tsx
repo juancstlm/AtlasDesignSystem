@@ -4,10 +4,10 @@ import { View, StyleSheet } from "react-native";
 import { useThemedStyle } from "../../hooks";
 import { Text } from '../Text'
 
-type Props = {
+export type FieldErrorProps = {
     error: string;
 }
-export const FieldError = ({ error }: Props) => {
+export const FieldError = ({ error }: FieldErrorProps) => {
     const styles = useStyles().styles
 
     return (<View style={styles.errorContainer}>
