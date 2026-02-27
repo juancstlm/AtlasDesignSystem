@@ -1,0 +1,11 @@
+src/
+example/
+.eslintrc.js
+tsconfig.json
+.github/
+.vscode/
+.cursor/
+*.tsbuildinfo
+coverage/
+_coverage/
+.DS_Store

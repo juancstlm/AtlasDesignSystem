@@ -31,8 +31,10 @@ expo install atlas-design-system @react-native-community/datetimepicker react-na
 ```
 
 > **Note**
-> • React Native ≥ 0.64 is required.  
-> • Follow the React-Native-Reanimated [installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/) and enable the Babel plugin if you haven't already.
+> • React Native ≥ 0.72 is required.  
+> • Some peer dependencies (`@react-native-community/datetimepicker`, `informed`, `moment`, `react-native-vector-icons`) are optional — only install them if you use the components that need them.  
+> • Follow the React-Native-Reanimated [installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/) and enable the Babel plugin if you haven't already.  
+> • After installing, run `npx pod-install` to link native iOS dependencies.
 
 ## Usage
 

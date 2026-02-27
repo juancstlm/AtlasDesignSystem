@@ -4,6 +4,13 @@
   "description": "A react native design system for the Atlas workout app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/juancstlm/AtlasDesignSystem.git"
@@ -14,29 +21,55 @@
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}' && tsc --noEmit",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
-    "test": "test",
+    "test": "echo \"No tests configured\" && exit 0",
     "example": "yarn --cwd example",
     "build": "tsc",
     "patch": "npm version patch",
     "minor": "npm version minor",
     "watch": "tsc --watch",
     "publish:dryrun": "npm publish --dry-run",
-    "publish:real": "yarn build && yarn publish",
-    "postinstall": "npx pod-install"
+    "prepublishOnly": "yarn lint && yarn build"
   },
   "keywords": [
     "react-native",
-    "native"
+    "ui",
+    "components",
+    "design-system",
+    "theming",
+    "typescript",
+    "ios",
+    "android"
   ],
+  "homepage": "https://github.com/juancstlm/AtlasDesignSystem#readme",
+  "bugs": {
+    "url": "https://github.com/juancstlm/AtlasDesignSystem/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "peerDependencies": {
     "@react-native-community/datetimepicker": ">=8.0.0",
     "informed": ">=4.61.0",
     "moment": ">=2.24.0",
-    "react": ">=19.0.0",
-    "react-native": ">=0.79.5",
+    "react": ">=18.0.0",
+    "react-native": ">=0.72.0",
     "react-native-reanimated": ">=3.17.4",
     "react-native-safe-area-context": ">=5.0.0",
     "react-native-vector-icons": ">=10.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@react-native-community/datetimepicker": {
+      "optional": true
+    },
+    "informed": {
+      "optional": true
+    },
+    "moment": {
+      "optional": true
+    },
+    "react-native-vector-icons": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@react-native-community/datetimepicker": "~8.0.1",
