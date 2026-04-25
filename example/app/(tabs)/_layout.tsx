@@ -1,12 +1,25 @@
 import { Tabs } from "expo-router";
-import { TitleBar } from "atlas-design-system";
+import { TitleBar, useTheme } from "atlas-design-system";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabsLayout() {
+  const theme = useTheme();
+
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarInactiveTintColor: theme.colors.foregroundHighContrast,
+      }}
+    >
       <Tabs.Screen
         name="(gallery)"
-        options={{ headerShown: false, title: "Gallery" }}
+        options={{
+          headerShown: false,
+          title: "Gallery",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="grid-outline" size={size} color={color} />
+          ),
+        }}
       />
       <Tabs.Screen
         name="settings"
@@ -21,6 +34,9 @@ export default function TabsLayout() {
             />
           ),
           title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings-outline" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>

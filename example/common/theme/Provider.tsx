@@ -20,6 +20,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       colors: {
         ...DefaultTheme.colors,
         background: theme.colors.backgroundPrimary,
+        card: theme.colors.backgroundPrimary,
         primary: theme.colors.primary,
         text: theme.colors.foreground,
         border: theme.colors.border,

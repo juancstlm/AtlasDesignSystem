@@ -73,6 +73,10 @@ export default function GalleryLayout() {
         name="formSegmentedControlGallery"
         options={{ title: "Form Segmented Control" }}
       />
+      <Stack.Screen
+        name="colorsGallery"
+        options={{ title: "Colors" }}
+      />
     </Stack>
   );
 }

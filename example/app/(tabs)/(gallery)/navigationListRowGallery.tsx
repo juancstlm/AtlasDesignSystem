@@ -9,7 +9,7 @@ export default function NavigationListRowGallery() {
     <ScrollView contentContainerStyle={styles.container}>
       <NavigationListRow
         label="Max Verstappen"
-        caption="3x World Champion"
+        caption="4x World Champion"
         onPress={() => {
           Alert.alert("Max Max Max", "Yes bois dis feels good!");
         }}

@@ -9,6 +9,15 @@ export default function Index() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.sectionHeader} category="h2">
+        Theme
+      </Text>
+      <NavigationListRow
+        onPress={() => {
+          router.navigate("/colorsGallery");
+        }}
+        label="Colors"
+      />
+      <Text style={styles.sectionHeader} category="h2">
         Components
       </Text>
       <NavigationListRow
